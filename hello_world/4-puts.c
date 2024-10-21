@@ -1,7 +1,12 @@
 #include <stdio.h>
+/**
+ * main - Entry point
+ * Description: 'Display sentence on screen'
+ * Return: Always 0 (Success)
+ */
+
 int main(void)
 {
-/* The below code will display sentence on screen */
 	puts("\"Programming is like building a multilingual puzzle");
 	return (0);
 }
