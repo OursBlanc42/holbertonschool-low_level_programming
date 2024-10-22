@@ -8,7 +8,7 @@
 
 int main(void)
 {
-	char *str = "zyxwvutsrponmlkjihgfdcba";
+	char *str = "zyxwvutsrqponmlkjihgfedcba";
 
 	while (*str)
 	{
