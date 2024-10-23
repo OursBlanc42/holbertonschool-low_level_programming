@@ -1,13 +1,18 @@
+#include <unistd.h>
 #include "main.h"
 
 /**
- * main - Entry point
- * Description: Display Alphabet on screen
- * Return: 0 if success
+ * print_alphabet = display alphabet to screen
+ * _putchar: Emulate function putchar
  */
 
-int main(void)
+void print_alphabet(void)
 {
-	print_alphabet();
-	return (0);
+	char *str = "abcdefghijklmnopqrstuvwxyz";
+
+	while (*str)
+	{
+		_putchar(*str++);
+	}
+	_putchar('\n');
 }
