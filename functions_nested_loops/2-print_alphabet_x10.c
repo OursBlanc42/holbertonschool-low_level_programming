@@ -2,7 +2,7 @@
 #include "main.h"
 
 /**
- * print_alphabet - Entry point
+ * print_alphabet_x10 - Entry point
  * Description: Display alphabet 10 times on screen without printf or putchar
  * _putchar: Emulate function putchar
  * Return: Display alphabet
