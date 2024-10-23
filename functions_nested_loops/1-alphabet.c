@@ -1,19 +1,13 @@
-#include <stdio.h>
+#include "main.h"
 
 /**
  * main - Entry point
- * Description: Display the alphabet on screen
- * Return: Alphabet
+ * Description: Display Alphabet on screen
+ * Return: 0 if success
  */
 
 int main(void)
 {
-	char *str = "abcdefghijklmnopqrstuvwxyz";
-
-	while (*str)
-	{
-		putchar(*str++);
-	}
-	putchar('\n');
+	print_alphabet();
 	return (0);
 }
