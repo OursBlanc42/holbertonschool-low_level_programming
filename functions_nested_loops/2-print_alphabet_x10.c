@@ -8,7 +8,7 @@
  * Return: Display alphabet
  */
 
-void print_alphabet(void)
+void print_alphabet_x10(void)
 {
 	char *str = "abcdefghijklmnopqrstuvwxyz"; /* chain to display */
 
@@ -18,7 +18,7 @@ void print_alphabet(void)
 	while (a < 10)
 	{
 		/* reset pointer */
-		char *ttr = str; 
+		char *ttr = str;
 
 		while (*ttr)
 		{

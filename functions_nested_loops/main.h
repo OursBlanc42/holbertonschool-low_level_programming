@@ -11,13 +11,17 @@
 /**
  * _putchar - writes the character c to stdout
  */
-
 int _putchar(char c);
 
 /**
  * print_alphabet - display alphabet
  */
 void print_alphabet(void);
+
+/**
+ * print_alphabet_x10 - display alphabet x10 times
+ */
+void print_alphabet_x10(void);
 
 
 #endif
