@@ -8,9 +8,6 @@
  * Return: 0 if n = zero  / 1 if if n>0 / -1 if n<0
  */
 
-/* prototype */
-int display(int n);
-
 int print_sign(int n)
 {
 	/* check n sign */
@@ -18,10 +15,7 @@ int print_sign(int n)
 	{
 		/* if > 0 : show + sign */
 		_putchar('+');
-
-		/* then display */
-		display(n);
-
+		_putchar('1');
 		return (1);
 	}
 
@@ -29,10 +23,7 @@ int print_sign(int n)
 	{
 		/* if < 0 : show - sign */
 		_putchar('-');
-
-		/* then display */
-		display(n);
-
+		_putchar('1');
 		return (-1);
 	}
 
@@ -46,45 +37,3 @@ int print_sign(int n)
 }
 
 
-/**
- * display - display the number
- * Description: Print the number after sign check.
- * Return: nothing
-* @n : number to print
- */
-
-int display(int n)
-{
-	/* declare local variable*/
-	/* define array to stock digit */
-	/* we assume this array is huge enough */
-	int i = 9;
-	int j;
-	int nbis;
-	int m;
-	char str[10];
-
-	/* copy n value to manipulate */
-	nbis = n;
-
-	/* loop through each digit */
-	while (nbis > 0 && i >= 0)
-	{
-		/* extract last digit */
-		m = nbis % 10;
-		/* convert digit to string */
-		m = m + '0';
-		/* write m in buffer */
-		str[i] = m;
-		/* decremential */
-		nbis = nbis / 10;
-		i--;
-	}
-
-	/* Show digit in right order */
-	for (j = i + 1; j < 10; j++)
-	{
-		_putchar(str[j]);
-	}
-	return (0);
-}
