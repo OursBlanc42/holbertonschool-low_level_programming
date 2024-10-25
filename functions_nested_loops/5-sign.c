@@ -56,18 +56,16 @@ int print_sign(int n)
 int display(int n)
 {
 	/* declare local variable*/
+	/* define array to stock digit */
+	/* we assume this array is huge enough */
 	int i = 9;
 	int j;
 	int nbis;
 	int m;
-
+	char str[10];
 
 	/* copy n value to manipulate */
 	nbis = n;
-
-	/* define array to stock digit */
-	/* we assume this array is huge enough */
-	char str[10];
 
 	/* loop through each digit */
 	while (nbis > 0 && i >= 0)
@@ -84,8 +82,9 @@ int display(int n)
 	}
 
 	/* Show digit in right order */
-	for (int j = i + 1; j < 10; j++)
+	for (j = i + 1; j < 10; j++)
 	{
 		_putchar(str[j]);
 	}
+	return (0);
 }
