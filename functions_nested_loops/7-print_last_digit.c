@@ -11,7 +11,7 @@
 int print_last_digit(int n)
 {
 	/* with modulo extract last digit */
-	n = n%10
+	n = n%10;
 	/* display */
 	_putchar(n);
 
