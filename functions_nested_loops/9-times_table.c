@@ -26,40 +26,20 @@ void times_table(void)
 			{
 				_putchar('0');
 			}
-			else if (i == 9)
-			{
-				if (d != 0)
-				{
-					_putchar(',');
-					_putchar(' ');
-					_putchar(d + '0');
-					_putchar(u + '0');
-				}
-				else
-				{
-					_putchar(',');
-					_putchar(' ');
-					_putchar(' ');
-					_putchar(u + '0');
-				}
-			}
 			else
 			{
+			    _putchar(',');
+				_putchar(' ');
+
 				if (d != 0)
 				{
-					_putchar(',');
-					_putchar(' ');
 					_putchar(d + '0');
 					_putchar(u + '0');
-
 				}
 				else
 				{
-					_putchar(',');
-					_putchar(' ');
 					_putchar(' ');
 					_putchar(u + '0');
-
 				}
 			}
 
