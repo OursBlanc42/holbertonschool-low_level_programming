@@ -31,15 +31,15 @@ void times_table(void)
 				if (d != 0)
 				{
 					_putchar(',');
-					_putchar('.');
+					_putchar(' ');
 					_putchar(d + '0');
 					_putchar(u + '0');
 				}
 				else
 				{
 					_putchar(',');
-					_putchar('.');
-					_putchar('.');
+					_putchar(' ');
+					_putchar(' ');
 					_putchar(u + '0');
 				}
 			}
@@ -48,7 +48,7 @@ void times_table(void)
 				if (d != 0)
 				{
 					_putchar(',');
-					_putchar('.');
+					_putchar(' ');
 					_putchar(d + '0');
 					_putchar(u + '0');
 
@@ -56,8 +56,8 @@ void times_table(void)
 				else
 				{
 					_putchar(',');
-					_putchar('.');
-					_putchar('.');
+					_putchar(' ');
+					_putchar(' ');
 					_putchar(u + '0');
 
 				}
