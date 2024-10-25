@@ -38,6 +38,12 @@ int _isalpha(int c);
  */
 int print_sign(int n);
 
+/**
+ * int _abs - display absolute value 
+ */
+int _abs(int);
+
+
 
 #endif
 
