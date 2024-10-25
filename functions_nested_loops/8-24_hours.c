@@ -55,7 +55,7 @@ void jack_bauer(void)
  * Return: last digit
  */
 
-void part2(hu, md, mu)
+void part2(int hu, int md, int mu)
 {
 	/* case after 20:00 */
 	for (hu = '0' ; hu <= '3' ; hu++)
