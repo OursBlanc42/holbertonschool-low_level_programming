@@ -14,13 +14,13 @@ int print_last_digit(int n)
 	int last_digit;
 
 	/* m handles overly large inputs like INT_MIN. */
-	long long int m;
+	long  int m;
 
 	/* convert to abs value */
 	if (n < 0)
 	{
 		/* convert n before x to avoid type overflow */
-		m = (long long int)n * -1;
+		m = (long  int)n * -1;
 	}
 	else
 	{
