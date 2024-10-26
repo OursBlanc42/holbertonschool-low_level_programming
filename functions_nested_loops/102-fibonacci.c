@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+/**
+ * main - entry point
+ * Description:  Prints 50first terms of fibonacci suite
+ * Return: 0 always sucess
+ */
+
+int main(void)
+{
+	/* declare variable */
+	unsigned int a, b, c, i;
+
+	/* initialize */
+	a = 1;
+	b = 2;
+
+	/* loop and print fibonacci result */
+	for (i = 0 ; i < 50 ; i++)
+	{
+		c = a + b;
+		a = b;
+		b = c;
+		printf("%u,", c);
+	}
+	return (0);
+}
