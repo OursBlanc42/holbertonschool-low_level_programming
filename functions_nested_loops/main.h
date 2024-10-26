@@ -68,5 +68,11 @@ int add(int, int);
  */
 void print_to_98(int n);
 
+/**
+ * print_times_table - prints all natural numbers from n to 98, followed by a new line.
+ */
+void print_times_table(int n);
+
+
 #endif
 
