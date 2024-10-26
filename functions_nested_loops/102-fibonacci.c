@@ -9,7 +9,7 @@
 int main(void)
 {
 	/* declare variable */
-	unsigned int a, b, c, i;
+	unsigned long int a, b, c, i;
 
 	/* initialize */
 	a = 0;
@@ -21,7 +21,7 @@ int main(void)
 		c = a + b;
 		a = b;
 		b = c;
-		printf("%u, ", c);
+		printf("%lu, ", c);
 	}
 	return (0);
 }
