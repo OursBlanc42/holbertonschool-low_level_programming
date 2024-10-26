@@ -12,8 +12,8 @@ int main(void)
 	unsigned int a, b, c, i;
 
 	/* initialize */
-	a = 1;
-	b = 2;
+	a = 0;
+	b = 1;
 
 	/* loop and print fibonacci result */
 	for (i = 0 ; i < 50 ; i++)
@@ -21,7 +21,7 @@ int main(void)
 		c = a + b;
 		a = b;
 		b = c;
-		printf("%u,", c);
+		printf("%u, ", c);
 	}
 	return (0);
 }
