@@ -16,13 +16,19 @@ int main(void)
 	b = 1;
 
 	/* loop and print fibonacci result */
-	for (i = 0 ; i < 50 ; i++)
+	for (i = 0 ; i < 49 ; i++)
 	{
 		c = a + b;
 		a = b;
 		b = c;
 		printf("%lu, ", c);
 	}
-	printf(",");
+
+	/* for last loop dont print the ,*/
+	c = a + b;
+	a = b;
+	b = c;
+	printf("%lu", c);
+
 	return (0);
 }
