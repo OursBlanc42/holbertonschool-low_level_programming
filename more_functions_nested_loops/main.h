@@ -25,6 +25,12 @@ int _isupper(int c);
  */
 int _isdigit(int c);
 
+/**
+ * mul - Multiplies two integers
+ * (return result of multiplies)
+ */
+int mul(int a, int b);
+
 
 #endif
 
