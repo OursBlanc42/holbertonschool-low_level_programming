@@ -61,5 +61,11 @@ void print_line(int n);
  */
 void print_diagonal(int n);
 
+/**
+ * print_square - prints a square shape made with #
+ * (return 0)
+ */
+void print_square(int size);
+
 #endif
 
