@@ -19,6 +19,12 @@ int _putchar(char c);
  */
 int _isupper(int c);
 
+/**
+ * _isdigit - Check for a digit (0 to 9) 
+ * (return 1 if c is digit & 0 otherwise)
+ */
+int _isdigit(int c);
+
 
 #endif
 
