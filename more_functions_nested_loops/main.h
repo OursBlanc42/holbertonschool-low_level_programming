@@ -67,5 +67,11 @@ void print_diagonal(int n);
  */
 void print_square(int size);
 
+/**
+ * print_square - prints a triangle shape made with #
+ * (return 0)
+ */
+void print_triangle(int size);
+
 #endif
 
