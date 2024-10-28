@@ -32,7 +32,10 @@ void print_diagonal(int n)
 		n--;
 		}
 	}
+	else
+	{
+		/* new line */
+		_putchar('\n');
+	}
 
-	/* new line */
-	_putchar('\n');
 }
