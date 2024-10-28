@@ -14,10 +14,24 @@
 int _putchar(char c);
 
 /**
- * reset_to_98 - akes a pointer to an int as parameter and updates the value it points to to 98.
+ * reset_to_98 - Takes a pointer to an int as parameter and updates the value it points to to 98.
  */
 void reset_to_98(int *n);
 
+/**
+ * swap_int - swaps the values of two integers.
+ */
+void swap_int(int *a, int *b);
+
+/**
+ * swap_int - returns the length of a string.
+ */
+int _strlen(char *s);
+
+/**
+ * _puts - prints a string, followed by a new line, to stdout.
+ */
+void _puts(char *str);
 
 #endif
 
