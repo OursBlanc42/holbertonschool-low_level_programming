@@ -55,5 +55,11 @@ void more_numbers(void);
  */
 void print_line(int n);
 
+/**
+ * print_line - Draw diagonal line in terminal with \ character
+ * (return 0)
+ */
+void print_diagonal(int n);
+
 #endif
 
