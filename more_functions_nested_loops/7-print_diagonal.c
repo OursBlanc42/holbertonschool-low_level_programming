@@ -2,7 +2,7 @@
 #include "main.h"
 
 /**
- * print_line - Entry point
+ * print_diagonal - Entry point
  * Description: Draw straight line in terminal with _ character
  * @n: length of the line
  * Return: (0)
