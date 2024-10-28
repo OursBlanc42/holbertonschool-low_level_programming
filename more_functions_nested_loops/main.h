@@ -43,5 +43,11 @@ void print_numbers(void);
  */
 void print_most_numbers(void);
 
+/**
+ * more_numbers - Print 10 times numbres from 0 to 14
+ * (return 0)
+ */
+void more_numbers(void);
+
 #endif
 
