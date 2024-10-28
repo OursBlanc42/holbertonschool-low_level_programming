@@ -49,5 +49,11 @@ void print_most_numbers(void);
  */
 void more_numbers(void);
 
+/**
+ * print_line - Draw straight line in terminal with _ character
+ * (return 0)
+ */
+void print_line(int n);
+
 #endif
 
