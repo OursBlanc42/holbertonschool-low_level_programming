@@ -33,5 +33,7 @@ void puts2(char *str)
 			_putchar(str[start]);
 		}
 	}
+	/* new line */
+	_putchar('\n')
 }
 
