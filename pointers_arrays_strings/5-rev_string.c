@@ -13,7 +13,14 @@ void rev_string(char *s)
 	/* declare and initialize variable */
 	int start = 0;
 	char temp = '\0';
-	int end = _strlen(s); /* retrieve chain length */
+	int end = 0;
+
+	/* loop through chain until null charactere ('\0') */
+	while (s[end] != '\0')
+	{
+		/* increment end for each character founded */
+		end++;
+	}
 
 	/* perform swap */
 	/* loop through chain in reverse */
