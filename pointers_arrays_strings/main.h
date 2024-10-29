@@ -64,5 +64,15 @@ void print_array(int *a, int n);
  */
 char *_strcpy(char *dest, char *src);
 
+/**
+ * _atoi - convert string to an integer
+ */
+int _atoi(char *s);
+
+/**
+ * _strcat - concatenates two strings.
+ */
+char *_strcat(char *dest, char *src);
+
 #endif
 
