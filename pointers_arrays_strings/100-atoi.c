@@ -54,7 +54,12 @@ int _atoi(char *s)
 	{
 		j = (s[i] - '0') * power;
 		value = value + j;
+
+		/* avoid problem with INT MAX or INT MIN */
+		if (power != 1000000000);
+		{
 		power *= 10;
+		}
 	}
 
 		/* determinate if its negative */
