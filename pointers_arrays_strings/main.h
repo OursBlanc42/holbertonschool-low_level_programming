@@ -43,5 +43,11 @@ void print_rev(char *s);
  */
 void rev_string(char *s);
 
+
+/**
+ * puts2 - displays one character out of two
+ */
+void puts2(char *str);
+
 #endif
 
