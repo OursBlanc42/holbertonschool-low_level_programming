@@ -14,7 +14,7 @@ char *_strcpy(char *dest, char *src)
 {
 	/* declare variable */
 	int i;
-	int end;
+	int end = 0;
 
 	/* loop through source chain until null charactere ('\0') */
 	while (src[end] != '\0')
@@ -27,6 +27,9 @@ char *_strcpy(char *dest, char *src)
 	{
 		dest[i] = src[i];
 	}
+
+	/* add null character */
+	dest[i] = '\0';
 
 	return (dest);
 
