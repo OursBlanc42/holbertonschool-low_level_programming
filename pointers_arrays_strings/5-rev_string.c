@@ -22,13 +22,14 @@ void rev_string(char *s)
 		end++;
 	}
 
+	/* adjust end */
+	end = end - 1;
+
 	/* perform swap */
 	/* loop through chain in reverse */
-	for (end = end - 1 ; end >= 0 ; end--)
+	/* through through middle of the chain*/
+	while (start < end)
 	{
-		/* through through middle of the chain*/
-		if (end != end / 2)
-		{
 		/* swap with temp buffer */
 		temp = s[start];
 		s[start] = s[end];
@@ -36,7 +37,9 @@ void rev_string(char *s)
 
 		/* increment start */
 		start++;
-		}
+
+		/* decrement end */
+		end--;
 	}
 
 }
