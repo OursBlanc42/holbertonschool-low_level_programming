@@ -20,7 +20,13 @@ void print_array(int *a, int n)
 	for (count = 0 ; count < n ; count++)
 	{
 		item = *(a + count);
-		printf("%d ", item);
+		printf("%d", item);
+
+		if (count != (n - 1))
+		{
+			printf(", ");
+		}
+
 	}
 
 	/* next line */
