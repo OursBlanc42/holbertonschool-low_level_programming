@@ -2,8 +2,9 @@
 #include "main.h"
 
 /**
- * _strcat - Entry point
+ * _strncat - Entry point
  * Description: concatenate two string
+ * but display only the first "n" bytes from the src string
  * @dest : string destination
  * @src : string source
  * @n : number of byte to display from src
