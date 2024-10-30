@@ -8,7 +8,6 @@
  * Return: integer
  */
 
-
 int _atoi(char *s)
 {
 	/* declare and define variable */
@@ -48,6 +47,12 @@ int _atoi(char *s)
 		count++;
 	}
 
+	/* determinate if its negative */
+	if (minus % 2 == 1)
+	{
+		power = power * -1;
+	}
+
 	/* from last to first digit 
 	recalculate each power of 10 at each rank to recompose the number*/
 	for (i = last_digit - 1 ; i >= first_digit ; i--)
@@ -62,11 +67,7 @@ int _atoi(char *s)
 		}
 	}
 
-		/* determinate if its negative */
-	if (minus % 2 == 1)
-	{
-		value = value * -1;
-	}
+
 
 	return (value);
 
