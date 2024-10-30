@@ -12,7 +12,6 @@
 
 char *_strncpy(char *dest, char *src, int n)
 {
-	/* declare variable */
 	int i;
 
 	/**
@@ -23,13 +22,17 @@ char *_strncpy(char *dest, char *src, int n)
 	for (i = 0; i < n && src[i] != '\0'; i++)
 	{
 		dest[i] = src[i];
-		i++;
 	}
 
-	/* add \0 at end */
-	i++;
-	dest[i]='\0';
+	/**
+	* After copying from src to dest, pad dest with '\0'
+	* if src is shorter than n
+	*/
 
+	for ( ; i < n; i++)
+	{
+		dest[i] = '\0';
+	}
 	return (dest);
 
 }
