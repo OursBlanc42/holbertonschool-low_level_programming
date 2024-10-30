@@ -74,5 +74,10 @@ int _atoi(char *s);
  */
 char *_strcat(char *dest, char *src);
 
+/**
+ * _strncat - concatenates two strings (will use at most n bytes from src)
+ */
+char *_strncat(char *dest, char *src, int n);
+
 #endif
 
