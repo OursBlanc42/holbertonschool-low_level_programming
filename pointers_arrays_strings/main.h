@@ -104,5 +104,10 @@ char *string_toupper(char *);
  */
 char *cap_string(char *);
 
+/**
+ * leet - encode str in leet
+ */
+char *leet(char *);
+
 #endif
 
