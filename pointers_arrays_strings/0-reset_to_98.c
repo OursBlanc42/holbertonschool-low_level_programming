@@ -5,7 +5,7 @@
  * reset_to_98 - Entry point
  * Description: ptakes a pointer to an int as parameter
  * and updates the value it points to to 98.
- * @*n: value to process
+ * @n: value to process
  * Return: (*n)
  */
 
