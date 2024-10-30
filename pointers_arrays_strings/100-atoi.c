@@ -11,7 +11,7 @@
 int _atoi(char *s)
 {
 	/* declare and define variable */
-	int value = 0;
+	unsigned int value = 0;
 	int count = 0;
 	int minus = 0;
 	int first_digit = 0;
@@ -19,6 +19,7 @@ int _atoi(char *s)
 	int i = 0;
 	int j = 0;
 	int power = 1;
+	int result =0;
 
 	/* loop through source chain until null charactere ('\0') */
 	while (s[count] != '\0')
@@ -47,12 +48,6 @@ int _atoi(char *s)
 		count++;
 	}
 
-	/* determinate if its negative */
-	if (minus % 2 == 1)
-	{
-		power = power * -1;
-	}
-
 	/* from last to first digit 
 	recalculate each power of 10 at each rank to recompose the number*/
 	for (i = last_digit - 1 ; i >= first_digit ; i--)
@@ -67,9 +62,19 @@ int _atoi(char *s)
 		}
 	}
 
+	/* determinate if its negative */
+	if (minus % 2 == 1)
+	{
+		result = value * -1;
+	}
+	else
+	{
+		result = value;
+	}
 
 
-	return (value);
+
+	return (result);
 
 }
 
