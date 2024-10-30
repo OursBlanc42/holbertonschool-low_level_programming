@@ -1,6 +1,40 @@
 #include <unistd.h>
 #include "main.h"
 
+
+
+/**
+ * recompose_value - recompose value
+ * Description: recalculate each power of 10 at each rank to recompose the nb
+ * @s: string
+ * @first_digit: first digit
+ * @last_digit : last_digit
+ * Return: recomposed value
+ */
+unsigned int recompose_value(char *s, int first_digit, int last_digit)
+{
+	unsigned int value = 0;
+	int power = 1;
+	int i;
+	int digit_value;
+
+	/* recalculate each power of 10 at each rank to recompose the number */
+	for (i = last_digit - 1; i >= first_digit; i--)
+	{
+		digit_value = (s[i] - '0') * power;
+		value += digit_value;
+
+		/* Avoid overflow by limiting power to 1,000,000,000 */
+		if (power != 1000000000)
+		{
+			power *= 10;
+		}
+	}
+
+	return (value);
+}
+
+
 /**
  * result_calculation - display the result
  * Description: convert value to result (convert to signed)
@@ -23,6 +57,7 @@ int result_calculation(unsigned int value, int minus)
 	return (result);
 }
 
+
 /**
  * _atoi - Entry point
  * Description: convert string to an integer
@@ -34,7 +69,7 @@ int _atoi(char *s)
 	/* declare and define variable */
 	unsigned int value = 0;
 	int result = 0, count = 0, minus = 0;
-	int first_digit = 0, last_digit = 0, i = 0, j = 0, power = 1;
+	int first_digit = 0, last_digit = 0;
 
 	/* loop through source chain until null charactere ('\0') */
 	while (s[count] != '\0')
@@ -63,25 +98,13 @@ int _atoi(char *s)
 		count++;
 	}
 
-	/**
-	* from last to first digit
-	* recalculate each power of 10 at each rank to recompose the number
-	*/
-	for (i = last_digit - 1 ; i >= first_digit ; i--)
-	{
-		j = (s[i] - '0') * power;
-		value = value + j;
-
-		/* avoid problem with INT MAX or INT MIN */
-		if (power != 1000000000)
-		{
-		power *= 10;
-		}
-	}
-
+	/* call subfunction */
+	value = recompose_value(s, first_digit, last_digit);
 	result = result_calculation(value, minus);
 
 	return (result);
 }
+
+
 
 
