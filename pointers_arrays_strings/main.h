@@ -129,5 +129,60 @@ char *_strchr(char *s, char c);
  */
 unsigned int _strspn(char *s, char *accept);
 
+/**
+ * searches a string for any of a set of bytes.
+ */
+char *_strpbrk(char *s, char *accept);
+
+/**
+ * locates a substring.
+ */
+char *_strstr(char *haystack, char *needle);
+
+/**
+ * print a chessboard
+ */
+void print_chessboard(char (*a)[8]);
+
+/**
+ * prints the sum of the two diagonals of a square matrix of integers.
+ */
+void print_diagsums(int *a, int size);
+
+/**
+ * prints a string, followed by a new line.
+ */
+void _puts_recursion(char *s);
+
+/**
+ * prints a string in reverse.
+ */
+void _print_rev_recursion(char *s);
+
+/**
+ * returns the length of a string.
+ */
+int _strlen_recursion(char *s);
+
+/**
+ * returns the factorial of a given number.
+ */
+int factorial(int n);
+
+/**
+ * returns the value of x raised to the power of y.
+ */
+int _pow_recursion(int x, int y);
+
+/**
+ * returns the natural square root of a number.
+ */
+int _sqrt_recursion(int n);
+
+/**
+ * returns 1 if the input integer is a prime number, otherwise return 0.
+ */
+int is_prime_number(int n);
+
 #endif
 
