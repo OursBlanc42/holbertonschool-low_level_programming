@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
 	(void)argc;
 	(void)argv;
 
-	/* Check if we have 2 arguments (= 2 numbers)*/
-	if (argc != 2)
+	/* Check if we have 3 arguments (= 2 numbers + name of program) */
+	if (argc != 3)
 	{
 		printf("Error\n");
 		return (1);
