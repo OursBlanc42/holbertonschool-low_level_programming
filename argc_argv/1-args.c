@@ -10,9 +10,14 @@
 
 int main(int argc, char *argv[])
 {
+	/* declare and initialize variable */
+	int result = 0;
 	/* hide argc and argv to avoid compilator error*/
 	(void)argc;
 	(void)argv;
-	printf("%d\n", argc);
+
+	/* Just counting number of arguments without program name */
+	result = argc - 1;
+	printf("%d\n", result);
 	return (0);
 }
