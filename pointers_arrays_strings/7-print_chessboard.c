@@ -22,10 +22,7 @@ void print_chessboard(char (*a)[8])
 			value = a[i][j];
 			_putchar(value);
 		}
-		if (i != 7)
-		{
-			_putchar('\n');
-		}
+		_putchar('\n');
 	}
 
 }
