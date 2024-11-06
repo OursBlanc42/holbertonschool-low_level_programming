@@ -29,8 +29,14 @@ char *_strchr(char *s, char c)
 		n++;
 	}
 
+	/* check if c is empty */
+	if (c == '\0')
+	{
+		/* return adress of first occurence */
+		return (&s[n]);
+	}
+
 	/* if character is not found */
 	return (NULL);
 
 }
-
