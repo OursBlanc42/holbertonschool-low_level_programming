@@ -13,11 +13,6 @@ unsigned int _strlen(char *str)
 	/* declare an initialize */
 	unsigned int count = 0;
 
-	if (str == NULL)
-	{
-		count = 0;
-		return (count);
-	}
 	while (*str != '\0')
 	{
 		count++;
@@ -43,7 +38,17 @@ char *str_concat(char *s1, char *s2)
 	unsigned int len_total;
 	char *arr;
 
-	/* find string length */
+	/* check special case */
+	if (s1 == NULL)
+	{
+		s1 = "";
+	}
+
+	if (s2 == NULL)
+	{
+		s2 = "";
+	}
+
 	len_s1 = _strlen(s1);
 	len_s2 = _strlen(s2);
 
@@ -66,10 +71,12 @@ char *str_concat(char *s1, char *s2)
 			arr[i] = s1[i];
 		}
 		/* second string (<= to count the FINAL \0 )*/
-		for (i = 0; i <= len_s2; i++)
+		for (i = 0; i < len_s2; i++)
 		{
 			arr[len_s1 + i] = s2[i];
 		}
+		/* Add the final '\0' */
+		arr[len_total - 1] = '\0';
 	}
 
 	return (arr);
