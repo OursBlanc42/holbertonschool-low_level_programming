@@ -15,6 +15,8 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 	/* declaration and initialization */
 	void *ptr = NULL; /* void used to be "generic" */
 	unsigned int len_total;
+	unsigned int i;
+	char *src; /* converted buffer pointer */
 
 	/* check special case */
 	if ((nmemb == 0) || (size == 0))
@@ -33,8 +35,15 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 		return (NULL);
 	}
 
-	/* initialization */
-	memset(ptr, 0, len_total);
+	/* 'src' points to the same address as 'ptr' but treats it as chars, */
+	/* allowing byte-by-byte access for initialization without altering   */
+	/* the original void pointer 'ptr' type. */
+	src = (char *)ptr;
+	for (i = 0 ; i < len_total ; i++)
+	{
+		src[i] = 0;
+	}
 
+	/* Convert into void */
 	return (ptr);
 }
