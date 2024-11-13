@@ -38,25 +38,18 @@ char *str_concat(char *s1, char *s2)
 	unsigned int len_total;
 	char *arr;
 
-	/* check special case */
-	if (s1 == NULL)
-	{
+	if (s1 == NULL)		/* check special case */
 		s1 = "";
-	}
-
-	if (s2 == NULL)
-	{
+	if (s2 == NULL)		/* check special case */
 		s2 = "";
-	}
 
-	len_s1 = _strlen(s1);
-	len_s2 = _strlen(s2);
+	len_s1 = _strlen(s1); /* find len of s1 */
+	len_s2 = _strlen(s2); /* find len of s1 */
 
 	/* len_total calculation + 1 to count the FINAL '\0' */
 	len_total = len_s1 + len_s2 + 1;
 
-	/* memory allocation */
-	arr = malloc(len_total);
+	arr = malloc(len_total); /* memory allocation */
 
 	/* check if memory allocation succeed */
 	if (arr == NULL)
@@ -64,8 +57,7 @@ char *str_concat(char *s1, char *s2)
 		return (NULL);
 	}
 	else
-	{	/* concatenate strings */
-		/* first string */
+	{	/* concatenate strings : first string */
 		for (i = 0; i < len_s1; i++)
 		{
 			arr[i] = s1[i];
@@ -78,6 +70,5 @@ char *str_concat(char *s1, char *s2)
 		/* Add the final '\0' */
 		arr[len_total - 1] = '\0';
 	}
-
 	return (arr);
 }
