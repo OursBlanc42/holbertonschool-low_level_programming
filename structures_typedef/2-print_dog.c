@@ -4,7 +4,7 @@
 /**
  * print_dog - initialize a variable of type struct dog
  * Description :  initialize a variable of type struct dog
- * @d: structure dog
+ * @d: pointer to the structure dog
  * Return:	/
  */
 

@@ -28,4 +28,12 @@ struct dog
  */
 void init_dog(struct dog *d, char *name, float age, char *owner);
 
+/**
+ * print_dog - initialize a variable of type struct dog
+ * Description :  initialize a variable of type struct dog
+ * @d: pointer to the structure dog
+ * Return:	/
+ */
+void print_dog(struct dog *d)
+
 #endif /* _DOG_H_ */
