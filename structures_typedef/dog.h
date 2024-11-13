@@ -1,7 +1,7 @@
 #ifndef DOG_H
 #define DOG_H
 
-/* 
+/*
  * File: dog.h
  * Description: Header file that contains prototypes functions and structures
  * This header ensures that the functions and structures
@@ -11,14 +11,14 @@
 
 /**
  * struct dog - About dog informations
- * name: doggo name
- * age: doggo age
- * owner: doggo owner
+ * @name: doggo name
+ * @age: doggo age
+ * @owner: doggo owner
  *
  * Description: struct. about doggo
  */
-
-struct dog {
+struct dog
+{
 	char *name;
 	float age;
 	char *owner;
@@ -26,22 +26,24 @@ struct dog {
 
 /**
  * init_dog - initialize a variable of type struct dog
-*/
+ * Description :  initialize a variable of type struct dog
+ * @d: structure
+ * @name: doggo name
+ * @age: doggo age
+ * @owner: doggo owner
+ * Return:	/
+ */
 void init_dog(struct dog *d, char *name, float age, char *owner);
 
 /**
- * print_dog - print a struct dog
-*/
+ * print_dog - initialize a variable of type struct dog
+ * Description :  initialize a variable of type struct dog
+ * @d: structure dog
+ * Return:	/
+ */
 void print_dog(struct dog *d);
 
-/**
- * dog_t - Typedef for struct dog
- */
-dog_t my_dog;
 
-/**
- * free_dog - free (memory) dog
-*/
-void free_dog(dog_t *d);
 
-#endif 
+
+#endif
