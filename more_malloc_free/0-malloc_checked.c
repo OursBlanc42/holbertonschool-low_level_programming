@@ -15,14 +15,14 @@ void *malloc_checked(unsigned int b)
 
 	/* check if b = 0 */
 	if (b == 0)
-		exit (98); /* exit programm (and not return function)*/
+		exit(98); /* exit programm (and not return function)*/
 
 	/* Allocate memory of "b" bytes */
 	ptr = malloc(b);
 
 	/* check if memory allocation succeed */
 	if (ptr == NULL)
-		exit (98); /* exit programm (and not return function)*/
+		exit(98); /* exit programm (and not return function)*/
 
 	return (ptr);
 
