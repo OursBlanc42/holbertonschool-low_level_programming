@@ -28,9 +28,9 @@ int *array_range(int min, int max)
 	* +1 to include 'max' in the range from 'min' to 'max'
 	* multiply by sizeof(int) to get the total byte size needed
 	*/
-	len_total = ((max - min) + 1) * sizeof(int);
-	
-	ptr = malloc(len_total); /* memory allocation */
+	len_total = (max - min + 1);
+
+	ptr = malloc(len_total * sizeof(int)); /* memory allocation */
 
 	if (ptr == NULL) /* check if memory allocation succeed */
 	{
@@ -41,7 +41,7 @@ int *array_range(int min, int max)
 	for (i = 0 ; min <= max; i++)
 	{
 		ptr[i] = min;
-		min ++;
+		min++;
 	}
 
 	return (ptr);
