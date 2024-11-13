@@ -49,7 +49,14 @@ typedef struct dog dog_t;
  * @owner: doggo owner
  * Return:	/
  */
-
 dog_t *new_dog(char *name, float age, char *owner);
+
+/**
+ * free_dog - free (memory) dogs
+ * Description :  free memory use by dogs structures
+ * @d: structure dog
+ * Return:	/
+ */
+ void free_dog(dog_t *d);
 
 #endif /* _DOG_H_ */
