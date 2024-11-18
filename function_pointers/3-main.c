@@ -12,12 +12,15 @@
 
 int main(int argc, char *argv[])
 {
+	/* variable declaration */
+	int num1;
+	int num2;
+	int result;
+
 	/* hide argc and argv to avoid compilator error*/
 	(void)argc;
 	(void)argv;
-	int num1; /* number a */
-	int num2; /* number b */
-	int result;
+
 
 	/* if the number of arguments is wrong, print Error, */
 	/* followed by a new line, and exit with the status 98  */
