@@ -24,10 +24,10 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 		else
 		{	/* if not print the separator */
 			printf("%s", separator);
+			printf("\n");	/* add new line */
 			return;
 		}
 	}
-
 	/* loop each arguments start with "n" */
 	/* (n-1) to stop before the last and not print the last separator */
 	for (i = 0; i < (n - 1); i++)
