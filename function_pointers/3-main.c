@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
 	(void)argc;
 	(void)argv;
 
-
 	/* if the number of arguments is wrong, print Error, */
 	/* followed by a new line, and exit with the status 98  */
 
@@ -31,12 +30,26 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 	else
-	{   /* convert string to number with atoi */
-		num1 = atoi(argv[1]);
-		num2 = atoi(argv[3]);
-		/* call get_op_func */
-		result = get_op_func(argv[2])(num1, num2);
-		printf("%d\n", result);
+	{
+		if (get_op_func(argv[2]) == NULL)
+		{	/* Check if the function pointer returned by get_op_func is NULL */
+			printf("Error\n");
+			exit(99);
+		}
+		else
+		{
+			/* Convert input arguments to integers using atoi */
+			num1 = atoi(argv[1]);
+			num2 = atoi(argv[3]);
+
+			/* Call get_op_func to retrieve the appropriate function pointer */
+			/* Immediately invoke the returned function with num1 and num2 */
+			result = get_op_func(argv[2])(num1, num2);
+
+			/* Print the result of the operation */
+			printf("%d\n", result);
+		}
+
 	}
 
 	return (0);

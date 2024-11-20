@@ -26,18 +26,12 @@ int (*get_op_func(char *s))(int, int)
 	i = 0;
 
 	/* loop through struct array (compare sign with input)*/
-	while (ops[i].op != NULL)
+	while ((ops[i].op != NULL) && (*(ops[i].op) != *s))
 	{
-		/* If the comparison returns 0, it means the strings are identical */
-		if (strcmp(ops[i].op, s) == 0)
-		{
-			return (ops[i].f);
-		}
 		i++;
 	}
-	/* If we reach this point, it means there was no match for */
-	/* the arithmetic operations, so exit with error */
-	printf("Error\n");
-	exit(99);
+		
+	/* Return operator function OR Null */
+	return (ops[i].f);
 
 }
