@@ -10,10 +10,9 @@
  */
 void print_numbers(const char *separator, const unsigned int n, ...)
 {
-	/* Variable declaration and initialisation */
-	unsigned int i;
-
+	unsigned int i;	/* Variable declaration and initialisation */
 	va_list args; /* Arguments list declaration */
+
 	va_start(args, n); /* Initialize list with fixed arguments */
 
 	if (n <= 0)
@@ -46,7 +45,7 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 	i++;	/* increment the last time to cath the last int */
 
 	printf("%d", va_arg(args, int));	/* print without separator */
-	
+
 	printf("\n");	/* add new line */
 
 	va_end(args); /* Ends the use of the list */
