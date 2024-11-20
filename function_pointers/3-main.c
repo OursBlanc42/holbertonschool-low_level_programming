@@ -17,15 +17,11 @@ int main(int argc, char *argv[])
 	int num2;
 	int result;
 
-	/* hide argc and argv to avoid compilator error*/
-	(void)argc;
-	(void)argv;
-
-	/* if the number of arguments is wrong, print Error, */
-	/* followed by a new line, and exit with the status 98  */
+	(void)argc;	/* hide argc and argv to avoid compilator error*/
+	(void)argv;	/* hide argc and argv to avoid compilator error*/
 
 	if (argc != 4)
-	{
+	{	/* if the number of arguments is wrong, print Error, */
 		printf("Error\n");
 		exit(98);
 	}
@@ -37,20 +33,15 @@ int main(int argc, char *argv[])
 			exit(99);
 		}
 		else
-		{
-			/* Convert input arguments to integers using atoi */
+		{	/* Convert input arguments to integers using atoi */
 			num1 = atoi(argv[1]);
 			num2 = atoi(argv[3]);
 
 			/* Call get_op_func to retrieve the appropriate function pointer */
 			/* Immediately invoke the returned function with num1 and num2 */
 			result = get_op_func(argv[2])(num1, num2);
-
-			/* Print the result of the operation */
-			printf("%d\n", result);
+			printf("%d\n", result);	/* Print the result of the operation */
 		}
-
 	}
-
 	return (0);
 }

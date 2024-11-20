@@ -30,7 +30,6 @@ int (*get_op_func(char *s))(int, int)
 	{
 		i++;
 	}
-		
 	/* Return operator function OR Null */
 	return (ops[i].f);
 
