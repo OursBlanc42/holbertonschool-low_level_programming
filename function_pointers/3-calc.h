@@ -18,15 +18,10 @@
 
 typedef struct op
 {
-    char *op;
-    int (*f)(int a, int b);
+	char *op;
+	int (*f)(int a, int b);
 } op_t;
 
-/**
- * get_op_func - select the correct function to perform operation
- * @s: mathematical operator
- * Return: NULL or result of the operation
- */
 
 int (*get_op_func(char *s))(int, int);
 
