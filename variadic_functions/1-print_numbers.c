@@ -16,18 +16,11 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 	va_start(args, n); /* Initialize list with fixed arguments */
 
 	/* special case */
+	/* if n <= 0 print nothing and return (to quit) */
 	if (n <= 0)
-	{	/* if n <= 0 print separtor or nothing*/
-		if (separator == NULL)
-		{	/* if separator = NULL we dont print it */
-			return; /* so just return void */
-		}
-		else
-		{	/* if not print the separator */
-			printf("%s", separator);
-			printf("\n");	/* add new line */
-			return;
-		}
+	{	
+		printf("\n");	/* add new line */
+		return;
 	}
 
 	/* loop each arguments start with "n" */
