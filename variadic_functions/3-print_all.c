@@ -79,13 +79,8 @@ void print_all(const char * const format, ...)
 
 	va_start(args, format); /* Initialize list with fixed arguments */
 
-	if (format == NULL || *format == '\0')
-	{
-		printf("\n");
-		return;
-	}
-
-	while (format[i] != '\0')
+	/* 1st : check if format is not null; THEN if we not reach the end */
+	while ((format != NULL) && (format[i] != '\0'))
 	{
 		j = 0; /* Reset index to loop through types table */
 		while (types[j] != '\0')
