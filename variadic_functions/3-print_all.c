@@ -79,14 +79,20 @@ void print_all(const char * const format, ...)
 
 	va_start(args, format); /* Initialize list with fixed arguments */
 
+	if (format == NULL || *format == '\0')
+	{
+		printf("\n");
+		return;
+	}
 
 	while (format[i] != '\0')
 	{
 		j = 0; /* Reset index to loop through types table */
 		while (types[j] != '\0')
-		{
+		{	/* check if we have a match between table and format */
+
 			if (format[i] == types[j])
-			{	/* check if we have a match between table and format */
+			{	/* check also if the format is not NULL or empty */
 				print_func[j](args); /* Call corresponding function */
 				if (format[i + 1] != '\0')
 				{	/* Print separator unless last argument */
@@ -96,10 +102,9 @@ void print_all(const char * const format, ...)
 			}
 			j++; /* increment j */
 		}
-
 		i++; /* increment j */
 	}
 
-	printf("\n"); /* add new line */
+	printf("\n"); /* add new line in any case */
 	va_end(args); /* Ends the use of the list */
 }
