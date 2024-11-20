@@ -15,6 +15,7 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 
 	va_start(args, n); /* Initialize list with fixed arguments */
 
+	/* special case */
 	if (n <= 0)
 	{	/* if n <= 0 print separtor or nothing*/
 		if (separator == NULL)
@@ -28,25 +29,20 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 			return;
 		}
 	}
+
 	/* loop each arguments start with "n" */
-	/* (n-1) to stop before the last and not print the last separator */
-	for (i = 0; i < (n - 1); i++)
-	{	/* catch each args as a int */
-		if (separator == NULL)
-		{	/* if separator = NULL we dont print it */
-			printf("%d", va_arg(args, int));
-		}
-		else
-		{	/* else we print number AND separator */
-			printf("%d%s", va_arg(args, int), separator);
+	for (i = 0; i < n; i++)
+	{	/* for each case we print the number */
+		printf("%d", va_arg(args, int));
+		/* Print the separator ONLY two condition : */
+		/* 1 : not NULL and 2 : not the "last occurence " */
+		if (i < n - 1 && separator != NULL)
+		{
+			printf("%s", separator);
 		}
 	}
 
-	i++;	/* increment the last time to cath the last int */
-
-	printf("%d", va_arg(args, int));	/* print without separator */
-
-	printf("\n");	/* add new line */
+	printf("\n");	/* add new line at end */
 
 	va_end(args); /* Ends the use of the list */
 
