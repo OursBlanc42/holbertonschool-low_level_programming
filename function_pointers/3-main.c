@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	if (argv[2][0] == '\0' || argv[2][1] != '\0')
+	if (argv[2][1] != '\0')
 	{	/* Check if argv[2] is empty or contains more than one character */
 		printf("Error\n");
 		exit(99);
