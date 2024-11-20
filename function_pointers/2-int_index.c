@@ -15,7 +15,6 @@ int int_index(int *array, int size, int (*cmp)(int))
 {
 	/* declare and initialize var */
 	int i;
-	int result;
 
 	/* check special case */
 	if (size <= 0)
@@ -26,9 +25,8 @@ int int_index(int *array, int size, int (*cmp)(int))
 	/* loop through array and execute the action for each item */
 	for (i = 0; i < size ; i++)
 	{	/* check if the return value is a 1 (match) or 0 (no match) */
-		result = (cmp(array[i]));
 		/* if a match, we found the first index and we can display it */
-		if (result != 0)
+		if (cmp(array[i]) != 0)
 		{
 			return (i);
 		}
