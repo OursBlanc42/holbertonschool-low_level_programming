@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "3-calc.h"
 
 /**
@@ -17,9 +17,6 @@ int main(int argc, char *argv[])
 	int num2;
 	int result;
 
-	(void)argc;	/* hide argc and argv to avoid compilator error*/
-	(void)argv;	/* hide argc and argv to avoid compilator error*/
-
 	if (argc != 4)
 	{	/* if the number of arguments is wrong, print Error, */
 		printf("Error\n");
@@ -27,7 +24,7 @@ int main(int argc, char *argv[])
 	}
 
 	if (argv[2][1] != '\0')
-	{	/* Check if argv[2] is empty or contains more than one character */
+	{	/* Check if argv[2] contains more than one character */
 		printf("Error\n");
 		exit(99);
 	}

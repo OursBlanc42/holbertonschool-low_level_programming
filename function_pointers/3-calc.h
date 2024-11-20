@@ -10,13 +10,6 @@
  */
 
 /**
- * _putchar - writes the character c to stdout
- * @c: char to display
- * Return: int (ascii)
- */
-int _putchar(char c);
-
-/**
  * struct op - Struct op
  *
  * @op: The operator
@@ -78,7 +71,4 @@ int op_div(int a, int b);
 int op_mod(int a, int b);
 
 
-
 #endif
-
-
