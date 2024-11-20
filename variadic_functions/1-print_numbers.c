@@ -18,7 +18,7 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 	/* special case */
 	/* if n <= 0 print nothing and return (to quit) */
 	if (n <= 0)
-	{	
+	{
 		printf("\n");	/* add new line */
 		return;
 	}
