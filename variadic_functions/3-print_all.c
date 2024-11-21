@@ -40,10 +40,6 @@ void print_float(va_list args)
 void print_string(va_list args)
 {	/* catch value in a string */
 	char *str = va_arg(args, char *);
-		if (str == NULL)
-		{	/* Replace NULL with “(nil)”. */
-			str = "(nil)";
-		}
 	/* Display argument */
 	printf("%s", str);
 }
