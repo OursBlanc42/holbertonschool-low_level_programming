@@ -63,8 +63,7 @@ void print_string(va_list args)
 void print_all(const char * const format, ...)
 {
 	/* Variable declaration and initialisation */
-	int i = 0;
-	int j;
+	int i = 0, int j;
 	char *comma_sep = "";
 
 	/* Correspondance table (type specifier and corresponding func) */
@@ -90,7 +89,7 @@ void print_all(const char * const format, ...)
 			if (format[i] == types[j])
 			{	/* first time print void comma_sep */
 				/* second time, comma_sep is setup to ", "*/
-				printf("%s", comma_sep); 
+				printf("%s", comma_sep);
 				print_func[j](args); /* Call corresponding function */
 				comma_sep = ", ";
 				break; /* Exit loop after finding match */
@@ -99,7 +98,6 @@ void print_all(const char * const format, ...)
 		}
 		i++; /* increment j */
 	}
-
 
 	printf("\n"); /* add new line in any case */
 	va_end(args); /* Ends the use of the list */
