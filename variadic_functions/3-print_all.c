@@ -40,6 +40,10 @@ void print_float(va_list args)
 void print_string(va_list args)
 {	/* catch value in a string */
 	char *str = va_arg(args, char *);
+		if (str == NULL)
+		{	/* Replace NULL with “(nil)”. */
+			str = "(nil)";
+		}
 	/* Display argument */
 	printf("%s", str);
 }
@@ -61,6 +65,8 @@ void print_all(const char * const format, ...)
 	/* Variable declaration and initialisation */
 	int i = 0;
 	int j;
+	char *comma_sep = "";
+
 	/* Correspondance table (type specifier and corresponding func) */
 	char types[] = { 'c', 'i', 'f', 's', '\0' };
 	/* Array of function pointers, each expecting a va_list argument */
@@ -79,22 +85,21 @@ void print_all(const char * const format, ...)
 	while ((format != NULL) && (format[i] != '\0'))
 	{
 		j = 0; /* Reset index to loop through types table */
-		while (types[j] != '\0')
+		while (types[j] != '\0')	/* loop in type table */
 		{	/* check if we have a match between table and format */
-
 			if (format[i] == types[j])
-			{	/* check also if the format is not NULL or empty */
+			{	/* first time print void comma_sep */
+				/* second time, comma_sep is setup to ", "*/
+				printf("%s", comma_sep); 
 				print_func[j](args); /* Call corresponding function */
-				if (format[i + 1] != '\0')
-				{	/* Print separator unless last argument */
-					printf(", ");
-				}
+				comma_sep = ", ";
 				break; /* Exit loop after finding match */
 			}
 			j++; /* increment j */
 		}
 		i++; /* increment j */
 	}
+
 
 	printf("\n"); /* add new line in any case */
 	va_end(args); /* Ends the use of the list */
