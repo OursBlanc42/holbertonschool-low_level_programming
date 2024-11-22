@@ -61,9 +61,9 @@ void print_string(va_list args)
  * Return: void
  */
 void print_all(const char * const format, ...)
-{
-	/* Variable declaration and initialisation */
-	int i = 0, int j;
+{	/* Variable declaration and initialisation */
+	int i = 0;
+	int j;
 	char *comma_sep = "";
 
 	/* Correspondance table (type specifier and corresponding func) */
