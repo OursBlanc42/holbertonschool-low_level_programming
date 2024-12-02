@@ -39,7 +39,7 @@ list_t *add_node(list_t **head, const char *str)
 	list_t *new_node = malloc(sizeof(*new_node));
 
 	/* Check for special cases: invalid input or memory allocation failure */
-	if ((str == NULL) || (new_node == NULL ))
+	if ((str == NULL) || (new_node == NULL))
 	{
 		return (NULL);
 	}
