@@ -33,34 +33,39 @@ int _strlen(char *str)
  */
 list_t *add_node_end(list_t **head, const char *str)
 {
-	/* Declare and initialize variable */
+    /*
+     * Prepare the new node:
+     * - Duplicate the input string to avoid modifying the original
+     * - Allocate memory for the new node
+     * - Check if memory allocation succeeded
+     */
 	char *dup_str = strdup(str);
-
-	/* create new node and check if malloc succeeded */
+	list_t *temp_buffer = NULL;
 	list_t *new_node = malloc(sizeof(*new_node));
 
 	if (new_node == NULL)
 		return (NULL);
 
-	/* Give data to the node */
+	/* Assign data to the new node */
 	/* next can be "NULL" cause will be the last node */
 	new_node->str = dup_str;
 	new_node->len = strlen(dup_str);
 	new_node->next = NULL;
 
-	/* If the head node is NULL, it's an empty list and we */
-	/* make the new node as head */
+	/* If the list is empty, set new_node as the head */
 	if (*head == NULL)
 		*head = new_node;
-	/* Otherwise, find last node and add the new one */
+
+	/* Otherwise, loop through the list and find the last node */
 	else
 	{
-		while ((*head)->next != NULL)
+		temp_buffer = *head;
+		while (temp_buffer->next != NULL)
 		{
-			(*head) = (*head)->next;
+			temp_buffer = temp_buffer->next;
 		}
-
-		(*head)->next = new_node;
+		/* Attach the new node at the end of the list */
+		temp_buffer->next = new_node;
 	}
 
 	return (new_node);
