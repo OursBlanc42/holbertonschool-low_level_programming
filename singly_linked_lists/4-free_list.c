@@ -34,6 +34,9 @@ void free_list(list_t *head)
 			free(temp_buffer);
 		}
 
+		/* Free the last one when head->next == NULL*/
+		free(head);
+
 	}
 
 }
