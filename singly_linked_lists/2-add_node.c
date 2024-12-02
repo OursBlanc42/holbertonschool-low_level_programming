@@ -5,10 +5,10 @@
 #include "lists.h"
 
 /**
- * _strlen - Calculate the length of a string
- * @str: string to check
- * Return: length of a string
- */
+* _strlen - Calculate the length of a string
+* @str: string to check
+* Return: length of a string
+*/
 int _strlen(char *str)
 {
 	/* declare and initialize variable */
@@ -26,21 +26,26 @@ int _strlen(char *str)
 }
 
 /**
- * add_node - Add a new node at the beginning of a list
- *@head: double pointer to a list_t list
- *@str: str to be added
- *Return: the adress of new elements or NULL if it failed
- */
+* add_node - Add a new node at the beginning of a list
+* @head: double pointer to a list_t list
+* @str: str to be added
+* Return: the adress of new elements or NULL if it failed
+*/
 list_t *add_node(list_t **head, const char *str)
 {
-	/* Declare and initialize variable */
-	char *dup_str = strdup(str);
-
-	/* create new node and check if malloc succeeded */
+	/* Declare and initialize variables */
+	char *dup_str = NULL;
+	/* Initialize a new node*/
 	list_t *new_node = malloc(sizeof(*new_node));
 
-	if (new_node == NULL)
+	/* Check for special cases: invalid input or memory allocation failure */
+	if ((str == NULL) || (new_node == NULL ))
+	{
 		return (NULL);
+	}
+
+	/* Duplicate str to manipulate it (and check if succeed)*/
+	dup_str = strdup(str);
 
 	/* Fill with data from "previous" node, calculate len */
 	/* and insert element at the begining of the list */
