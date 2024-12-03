@@ -35,17 +35,24 @@ list_t *add_node(list_t **head, const char *str)
 {
 	/* Declare and initialize variables */
 	char *dup_str = NULL;
+
 	/* Initialize a new node*/
-	list_t *new_node = malloc(sizeof(*new_node));
+	list_t *new_node = malloc(sizeof(list_t));
 
 	/* Check for special cases: invalid input or memory allocation failure */
 	if ((str == NULL) || (new_node == NULL))
 	{
+		free(new_node);
 		return (NULL);
 	}
 
-	/* Duplicate str to manipulate it */
+	/* Duplicate str to manipulate it & check if duplication succeed */
 	dup_str = strdup(str);
+	if (dup_str == NULL)
+	{
+		free(new_node);
+		return (NULL);
+	}
 
 	/* Fill with data from "previous" node, calculate len */
 	/* and insert element at the begining of the list */
