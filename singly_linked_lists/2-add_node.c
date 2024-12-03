@@ -28,7 +28,7 @@ int _strlen(char *str)
 /**
 * add_node - Add a new node at the beginning of a list
 * @head: double pointer to a list_t list
-* @str: str to be added
+* @str: string wrote in the new node
 * Return: the adress of new elements or NULL if it failed
 */
 list_t *add_node(list_t **head, const char *str)
@@ -44,7 +44,7 @@ list_t *add_node(list_t **head, const char *str)
 		return (NULL);
 	}
 
-	/* Duplicate str to manipulate it (and check if succeed)*/
+	/* Duplicate str to manipulate it */
 	dup_str = strdup(str);
 
 	/* Fill with data from "previous" node, calculate len */
