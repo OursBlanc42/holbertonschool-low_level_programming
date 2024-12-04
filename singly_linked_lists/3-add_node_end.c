@@ -49,7 +49,7 @@ list_t *add_node_end(list_t **head, const char *str)
 	/* Assign data to the new node */
 	/* next can be "NULL" cause will be the last node */
 	new_node->str = dup_str;
-	new_node->len = strlen(dup_str);
+	new_node->len = _strlen(dup_str);
 	new_node->next = NULL;
 
 	/* If the list is empty, set new_node as the head */
