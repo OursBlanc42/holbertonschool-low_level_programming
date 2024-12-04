@@ -26,7 +26,7 @@ dlistint_t *add_dnodeint(dlistint_t **head, const int n)
 	new_node->n = n;
 
 	/* Assign previous as NULL (cause will be the first one)*/
-	new_node->prev = NULL;	
+	new_node->prev = NULL;
 
 	/* Link the node N to node N+1 */
 	new_node->next = *head;
