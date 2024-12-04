@@ -57,7 +57,7 @@ list_t *add_node(list_t **head, const char *str)
 	/* Fill with data from "previous" node, calculate len */
 	/* and insert element at the begining of the list */
 	new_node->str = dup_str;
-	new_node->len = strlen(dup_str);
+	new_node->len = _strlen(dup_str);
 	new_node->next = *head;
 	*head = new_node;
 
