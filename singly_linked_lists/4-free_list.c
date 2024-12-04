@@ -7,7 +7,9 @@
 * 1 - Loop through each node.
 * 2 - Save the actual node in a buffer.
 * 3 - Move forward to next node.
-* 4 - Free memory of actual/buffer node.
+* 4 - Free memory of actual node.
+*	Free pointer to the node itself
+*	Also free memory allocated by strdup previously (strdup allocate memory);
 *@head: pointer to a list_t list
 *Return: void
 */
@@ -29,6 +31,7 @@ void free_list(list_t *head)
 		temp_buffer = head->next;
 
 		/* Free current node */
+		free(head->str);
 		free(head);
 
 		/* Switch to next node */
