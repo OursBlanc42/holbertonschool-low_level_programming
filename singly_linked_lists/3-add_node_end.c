@@ -31,14 +31,8 @@ int _strlen(char *str)
  */
 list_t *add_node_end(list_t **head, const char *str)
 {
-	/*
-		* Prepare the new node:
-		* - Declare and initialize input string 
-		* - Allocate memory for the new node
-		* - Check if memory allocation succeeded
-		*/
-	char *dup_str = NULL;
-	list_t *temp_buffer = NULL;
+	char *dup_str = NULL;	/* Declare and initialize variables */
+	list_t *temp_buffer = NULL;	/* Initialize a new node*/
 	list_t *new_node = malloc(sizeof(*new_node));
 
 	/* Check for special cases: invalid input or memory allocation failure */
@@ -56,8 +50,7 @@ list_t *add_node_end(list_t **head, const char *str)
 		return (NULL);
 	}
 
-	/* Assign data to the new node */
-	/* next can be "NULL" cause will be the last node */
+	/* Assign data Next = "NULL" cause will be the last node */
 	new_node->str = dup_str;
 	new_node->len = _strlen(dup_str);
 	new_node->next = NULL;
@@ -71,9 +64,8 @@ list_t *add_node_end(list_t **head, const char *str)
 	{
 		temp_buffer = *head;
 		while (temp_buffer->next != NULL)
-		{
 			temp_buffer = temp_buffer->next;
-		}
+
 		/* Attach the new node at the end of the list */
 		temp_buffer->next = new_node;
 	}
