@@ -22,11 +22,22 @@ dlistint_t *add_dnodeint(dlistint_t **head, const int n)
 		return (NULL);
 	}
 
-	/* Fill with data from "previous" node, */
-	/* and insert element at the begining of the list */
+	/* Fill with new data */
 	new_node->n = n;
-	new_node->prev = NULL;
+
+	/* Assign previous as NULL (cause will be the first one)*/
+	new_node->prev = NULL;	
+
+	/* Link the node N to node N+1 */
 	new_node->next = *head;
+
+	/* If list is not empty Link the node N+1 to N */
+	if (*head != NULL)
+	{
+		(*head)->prev = new_node;
+	}
+
+	/* New begining of the list */
 	*head = new_node;
 
 	return (new_node);
