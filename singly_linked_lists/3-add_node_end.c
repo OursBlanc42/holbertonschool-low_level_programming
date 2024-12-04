@@ -35,16 +35,24 @@ list_t *add_node_end(list_t **head, const char *str)
 {
     /*
      * Prepare the new node:
-     * - Duplicate the input string to avoid modifying the original
+     * - Declare and initialize input string 
      * - Allocate memory for the new node
      * - Check if memory allocation succeeded
      */
-	char *dup_str = strdup(str);
+	char *dup_str = NULL;
 	list_t *temp_buffer = NULL;
 	list_t *new_node = malloc(sizeof(*new_node));
 
 	if (new_node == NULL)
 		return (NULL);
+
+	/* Duplicate str to manipulate it & check if duplication succeed */
+	dup_str = strdup(str);
+	if (dup_str == NULL)
+	{
+		free(new_node);
+		return (NULL);
+	}
 
 	/* Assign data to the new node */
 	/* next can be "NULL" cause will be the last node */
