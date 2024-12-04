@@ -46,14 +46,14 @@ list_t *add_node_end(list_t **head, const char *str)
 	dup_str = strdup(str);
 	if (dup_str == NULL)
 	{
+		free(dup_str);
 		free(new_node);
 		return (NULL);
 	}
 
-	/* Assign data Next = "NULL" cause will be the last node */
 	new_node->str = dup_str;
 	new_node->len = _strlen(dup_str);
-	new_node->next = NULL;
+	new_node->next = NULL;	/* "NULL" cause will be the last node */
 
 	/* If the list is empty, set new_node as the head */
 	if (*head == NULL)
@@ -69,6 +69,6 @@ list_t *add_node_end(list_t **head, const char *str)
 		/* Attach the new node at the end of the list */
 		temp_buffer->next = new_node;
 	}
-
+	free(dup_str);	/* free cause strdup allocate memory for dup_str pointer */
 	return (new_node);
 }

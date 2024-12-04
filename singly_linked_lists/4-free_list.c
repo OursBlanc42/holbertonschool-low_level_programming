@@ -13,7 +13,7 @@
 */
 void free_list(list_t *head)
 {
-	/* declare and initialize */
+	/* Initialize a temprorary buffer node*/
 	list_t *temp_buffer = NULL;
 
 	/* If the head node is NULL, it's an empty list */
@@ -21,19 +21,18 @@ void free_list(list_t *head)
 	{
 		return;
 	}
-	/* Else, loop through each node and free them */
-	else
-	{
-		while (head->next != NULL)
-		{
-			temp_buffer = head;	/* temporary backup before free */
-			head = head->next;
-			free(temp_buffer);
-		}
 
-		/* Free the last one when head->next == NULL*/
+	/* Loop through the list until reach the end */
+	while (head != NULL)
+	{
+		/* Store the next node in buffer before deleting */
+		temp_buffer = head->next;
+
+		/* Free current node */
 		free(head);
 
+		/* Switch to next node */
+		head = temp_buffer;
 	}
 
 }
