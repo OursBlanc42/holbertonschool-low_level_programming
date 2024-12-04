@@ -11,6 +11,12 @@ size_t print_dlistint(const dlistint_t *h)
 	/* Declare and initialize variable*/
 	unsigned long int nb_node = 0;
 
+	/* rewind to the begining of the list */
+	while (h && h->prev != NULL)
+	{
+		h = h->prev;
+	}
+
 	/* Loop through the linked list */
 	while (h != NULL)
 	{
