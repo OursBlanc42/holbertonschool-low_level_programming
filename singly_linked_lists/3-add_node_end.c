@@ -31,18 +31,22 @@ int _strlen(char *str)
  */
 list_t *add_node_end(list_t **head, const char *str)
 {
-    /*
-     * Prepare the new node:
-     * - Declare and initialize input string 
-     * - Allocate memory for the new node
-     * - Check if memory allocation succeeded
-     */
+	/*
+		* Prepare the new node:
+		* - Declare and initialize input string 
+		* - Allocate memory for the new node
+		* - Check if memory allocation succeeded
+		*/
 	char *dup_str = NULL;
 	list_t *temp_buffer = NULL;
 	list_t *new_node = malloc(sizeof(*new_node));
 
-	if (new_node == NULL)
+	/* Check for special cases: invalid input or memory allocation failure */
+	if ((str == NULL) || (new_node == NULL))
+	{
+		free(new_node);
 		return (NULL);
+	}
 
 	/* Duplicate str to manipulate it & check if duplication succeed */
 	dup_str = strdup(str);
