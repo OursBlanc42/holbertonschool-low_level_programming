@@ -26,11 +26,17 @@ int _strlen(char *str)
 
 /**
 * create_file - create_file
+* Description :
+*	- Create a file with permissions rw-------
+*	- If the file already exists do not change the permissions.
+*	- If file already exist truncate it. (delete data)
+*	- If filename is NULL return -1
+*	- If text_content is NULL create an empty file
 * @filename: test file to read
 * @text_content: is a NULL terminated string to write to the file
 * Return:
-*  1 on success
-*  -1 on failure (file can not be created or written, write “fails”...)
+*	1 on success
+*	-1 on failure (file can not be created or written, write “fails”...)
 */
 int create_file(const char *filename, char *text_content)
 {
@@ -44,7 +50,7 @@ int create_file(const char *filename, char *text_content)
 
 	/* try to open the file (if the file can not be opened, return 0)*/
 	/* the open function will create the file if file doesnt exist */
-	file_desc = open(filename, O_CREAT | O_RDWR, 0600);
+	file_desc = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
 
 	if (file_desc == -1)
 		return (0);
