@@ -44,9 +44,9 @@ int create_file(const char *filename, char *text_content)
 	int file_desc = 0;
 	unsigned long int nb_print_char = 0;
 
-	/* check special case (if filename is NULL return 0) */
+	/* check special case (if filename is NULL return -1) */
 	if (filename == NULL)
-		return (0);
+		return (-1);
 
 	/* try to open the file (if the file can not be opened, return 0)*/
 	/* the open function will create the file if file doesnt exist */
