@@ -50,10 +50,15 @@ int create_file(const char *filename, char *text_content)
 
 	/* try to open the file (if the file can not be opened, return 0)*/
 	/* the open function will create the file if file doesnt exist */
+	/* O_TRUNC will wipe the data if the file exist  */
 	file_desc = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);
 
 	if (file_desc == -1)
 		return (0);
+
+	/* If text_content = NULL ; the file stay empty */
+	if (text_content == NULL)
+		return (1);
 
 	/* write data in file */
 	nb_print_char = write(file_desc, text_content, _strlen(text_content));
