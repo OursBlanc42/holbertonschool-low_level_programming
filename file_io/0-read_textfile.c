@@ -43,9 +43,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	nb_byte_read = read(file_desc, text_buffer, letters);
 
 	if (nb_byte_read > 0)
-	{
 		nb_print_char = write(STDOUT_FILENO, text_buffer, nb_byte_read);
-	}
 
 	/* After manipualtion close document and free memmory */
 	close(file_desc);
@@ -53,12 +51,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	/* if write fails or does not write the expected amount of bytes, return 0 */
 	if (nb_byte_read != nb_print_char)
-	{
 		return (0);
-	}
 	else
-	{
 		return (nb_print_char);
-	}
-
 }
