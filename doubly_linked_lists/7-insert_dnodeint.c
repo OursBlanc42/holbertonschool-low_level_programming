@@ -24,6 +24,55 @@ size_t dlistint_len(const dlistint_t *h)
 }
 
 /**
+* insert_after_node - subfonction who insert a node after another one
+* @h: pointer to head
+* @idx: index of the list where the new node should be added. Index start 0
+* @n: data to be added (int)
+* Return: the number of elements
+*/
+dlistint_t *insert_after_node(dlistint_t *h, unsigned int idx, int n)
+{
+	/* Declare and initialize variables */
+	unsigned int current_index = 0;
+	dlistint_t *node = NULL;
+	dlistint_t *temp_buffer = NULL;
+
+	temp_buffer = h;
+
+	/* Loop through the chain until finde node before index */
+	while (temp_buffer != NULL)
+	{
+		if (current_index == (idx - 1))
+		{
+			/* Initialize a new node*/
+			node = malloc(sizeof(*node));
+
+			/* Check memory allocation failure */
+			if (node == NULL)
+				return (NULL);
+
+			/* write data */
+			node->n = n;
+			/* Set the pref of new node to current_node */
+			node->prev = (temp_buffer);
+			/* Set the next of new node */
+			node->next = (temp_buffer)->next;
+			/* update the link with next node to new node */
+			(temp_buffer)->next = node;
+
+			return (node);
+		}
+
+		temp_buffer = temp_buffer->next;
+		current_index++;
+	}
+
+	/* If we reach this point, that mean we have a problem and return NULL */
+	return (NULL);
+}
+
+
+/**
 * insert_dnodeint_at_index - inserts a new node at a given position.
 * @h: double pointer to the head of the double linked chain
 * @idx: index of the list where the new node should be added. Index start 0
@@ -34,9 +83,7 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
 	/* Declare and initialize variables */
 	unsigned int list_len = 0;
-	unsigned int current_index = 0;
 	dlistint_t *new_node = NULL;
-	dlistint_t *temp_buffer = NULL;
 
 	/* Calculate len of the list */
 	list_len = dlistint_len(*h);
@@ -59,34 +106,10 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 		if (idx == list_len)
 			add_dnodeint_end(h, n);
 
-	/* Otherwise traverse list to find the node before the insertion point */
-		temp_buffer = *h;
-		while (temp_buffer != NULL)
-		{
-			if (current_index == (idx - 1))
-			{
-				/* Initialize a new node*/
-				new_node = malloc(sizeof(*new_node));
+		/* Otherwise add node at the idx position with subfunction */
+		new_node = insert_after_node(*h, idx, n);
 
-				/* Check memory allocation failure */
-				if (new_node == NULL)
-				{
-					return (NULL);
-				}
-
-				/* Set the pref of new node to current_node */
-				new_node->prev = (temp_buffer);
-				/* Set the next of new node */
-				new_node->next = (temp_buffer)->next;
-				/* update the link with next node to new_node */
-				(temp_buffer)->next = new_node;
-
-				return (*h);
-			}
-
-			temp_buffer = temp_buffer->next;
-		}
-
+		return (new_node);
 	}
 
 	return (NULL);
