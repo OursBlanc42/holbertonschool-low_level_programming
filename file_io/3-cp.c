@@ -4,6 +4,33 @@
 #include <fcntl.h>
 #include "main.h"
 
+void close_properly(int fd_from, int fd_to, char *text_buffer)
+{
+	/* Try to close the first file descriptor */
+	if (close(fd_from) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+
+		/* Free the allocated buffer */
+		if (text_buffer != NULL)
+			free(text_buffer);
+
+		exit(100);
+	}
+
+	/* Try to close the second file descriptor */
+	if (close(fd_to) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
+
+		/* Free the allocated buffer */
+		if (text_buffer != NULL)
+			free(text_buffer);
+
+		exit(100);
+	}
+}
+
 /**
  * main - copies the content of a file to another file
  * Description : This program is an ersatz of the 'cp' command
@@ -48,27 +75,16 @@ int main(int argc, char **argv)
 		exit(98);
 	}
 
-	/* try to open/create the destination file */
-	/* the open function will create the file if file doesnt exist */
-	/* O_TRUNC will wipe the data if the file exist  */
+/* Try to open/create the destination file and allocate memory for buffer */
+
 	file_desc_to = open(file_to, O_CREAT | O_RDWR | O_TRUNC, 0664);
-
-	if (file_desc_to == -1)
-	{
-		dprintf(STDERR_FILENO, "Can't read from file %s\n", file_to);
-		exit(99);
-	}
-
-	/* allocate memory for buffer */
 	text_buffer = malloc(buffer_size * sizeof(char));
 
-	/* if error closes documents and free memory */
-	if (text_buffer == NULL)
+	if ((file_desc_to == -1) || (text_buffer == NULL))
 	{
-		close(file_desc_from);
-		close(file_desc_to);
-		free(text_buffer);
-		return (0);
+		close_properly(file_desc_to, file_desc_from, text_buffer);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+		exit(99);
 	}
 
 /**
@@ -86,18 +102,8 @@ int main(int argc, char **argv)
 		nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
 	}
 
-	/* Try to close each file descriptor */
-	if (close(file_desc_from) == -1) 
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_from);
-		exit(100);
-	}
-
-	if (close(file_desc_to) == -1) 
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_to);
-		exit(100);
-	}
+	/* close each document */
+	close_properly(file_desc_to, file_desc_from, text_buffer);
 
 	/* Free the allocated buffer */
 	free(text_buffer);
