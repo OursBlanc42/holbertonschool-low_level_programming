@@ -90,7 +90,7 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 
 	/* Check special case */
 	/* If list is empty, the only right index is zero */
-	if ((h == NULL) && (idx != 0))
+	if ((*h == NULL) && (idx != 0))
 	{
 		return (NULL);
 	}
@@ -100,16 +100,23 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 	{
 		/* If == 0 : add node at the begining of the list */
 		if (idx == 0)
-			add_dnodeint(h, n);
+			new_node = add_dnodeint(h, n);
 
 		/* If idx == (list_len) : add node at the end of the list */
 		if (idx == list_len)
-			add_dnodeint_end(h, n);
+			new_node = add_dnodeint_end(h, n);
 
 		/* Otherwise add node at the idx position with subfunction */
 		new_node = insert_after_node(*h, idx, n);
 
-		return (new_node);
+		if (new_node == NULL)
+		{
+			return (NULL);
+		}
+		else
+		{
+			return (new_node);
+		}
 	}
 
 	return (NULL);
