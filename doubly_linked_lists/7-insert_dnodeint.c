@@ -103,12 +103,14 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 			new_node = add_dnodeint(h, n);
 
 		/* If idx == (list_len) : add node at the end of the list */
-		if (idx == list_len)
+		else if (idx == list_len)
 			new_node = add_dnodeint_end(h, n);
 
 		/* Otherwise add node at the idx position with subfunction */
-		new_node = insert_after_node(*h, idx, n);
-
+		else
+			new_node = insert_after_node(*h, idx, n);
+		
+		/* Once subfunction call, check the return code */
 		if (new_node == NULL)
 		{
 			return (NULL);
