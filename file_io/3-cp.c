@@ -86,10 +86,22 @@ int main(int argc, char **argv)
 		nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
 	}
 
+	/* Try to close each file descriptor */
+	if (close(file_desc_from) == -1) 
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_from);
+		exit(100);
+	}
 
-	close(file_desc_from);
-	close(file_desc_to);
+	if (close(file_desc_to) == -1) 
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_to);
+		exit(100);
+	}
+
+	/* Free the allocated buffer */
 	free(text_buffer);
+
 
 	return (0);
 }
