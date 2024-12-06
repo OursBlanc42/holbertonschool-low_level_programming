@@ -47,14 +47,9 @@ int main(int argc, char **argv)
 	/* declare variables */
 	char *file_from = NULL;
 	char *file_to = NULL;
-	int file_desc_from = -1;
-	int file_desc_to = -1;
-	ssize_t buffer_size = 1024;
-	ssize_t nb_byte_read = 0;
-	ssize_t nb_print_char = 0;
 	char *text_buffer = NULL;
-
-	(void)nb_print_char;
+	int file_desc_from = -1, file_desc_to = -1;
+	ssize_t buffer_size = 1024, nb_byte_read = 0, nb_print_char = 0;
 
 	/* Check the number of argument */
 	if (argc != 3)
@@ -69,7 +64,7 @@ int main(int argc, char **argv)
 
 	/* try to open the source file */
 	file_desc_from = open(file_from, O_RDONLY);
-	if ((file_desc_from == -1) || (file_from == NULL))
+	if (file_desc_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
