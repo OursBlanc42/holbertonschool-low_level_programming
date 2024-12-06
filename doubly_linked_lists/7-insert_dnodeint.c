@@ -56,7 +56,7 @@ dlistint_t *insert_after_node(dlistint_t *h, unsigned int idx, int n)
 			/* Set the prev of new node to current_node */
 			node->prev = (temp_buffer);
 			/* Set the next of new node */
-			node->next = (temp_buffer)->next; 
+			node->next = (temp_buffer)->next;
 			/* update link with next node to new node */
 			node->next->prev = node;
 			/* update the link with previous node to new node */
@@ -111,16 +111,14 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 		/* Otherwise add node at the idx position with subfunction */
 		else
 			new_node = insert_after_node(*h, idx, n);
-		
+
 		/* Once subfunction call, check the return code */
 		if (new_node == NULL)
 		{
 			return (NULL);
 		}
 		else
-		{
 			return (new_node);
-		}
 	}
 
 	return (NULL);
