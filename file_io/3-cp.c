@@ -4,11 +4,16 @@
 #include <fcntl.h>
 #include "main.h"
 
-
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * main - copies the content of a file to another file
+ * Description : This program is an ersatz of the 'cp' command
+ * - If the number of arguments is incorrect : exit with code 97
+ * - If file_to already exists : will be truncate.
+ * - If file_from not exist or cannot be read : exit with code 98
+ * - If file_to cant be created or writing to it fail : exit with code 99
+ * - If a file descriptor cannot be closed, exit with code 100
+ * @filename: test file to read
+ * Return: always 0
  */
 int main(int argc, char **argv)
 {
@@ -22,33 +27,25 @@ int main(int argc, char **argv)
 	ssize_t nb_print_char = 0;
 	char *text_buffer = NULL;
 
+	(void)nb_print_char;
+
 	/* Check the number of argument */
-    if (argc != 3)
-    {
+	if (argc != 3)
+	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-        exit(97);
-    }
+		exit(97);
+	}
 
 	/* Gets the names of the two files and initializes them in variables */
 	file_from = argv[1];
 	file_to = argv[2];
 
-	printf("file_from = %s\n", file_from);
-	printf("file_to = %s\n", file_to);
-
-	/* check special case (if filename is NULL return 0) */
-	if (file_from == NULL)
-	{
-		printf("Source file is null\n");
-		return (0);
-	}
-
-	/* try to open the source file (if the file can not be opened, return 0) */
+	/* try to open the source file */
 	file_desc_from = open(file_from, O_RDONLY);
-	if (file_desc_from == -1)
+	if ((file_desc_from == -1) || (file_from == NULL))
 	{
-		printf("Source file descriptor = -1 : ERROR \n");
-		return (0);
+		dprintf(STDERR_FILENO, "Can't read from file %s\n", file_from);
+		exit(98);
 	}
 
 	/* try to open/create the destination file */
@@ -58,8 +55,8 @@ int main(int argc, char **argv)
 
 	if (file_desc_to == -1)
 	{
-		printf("Destination file descriptor = -1 : ERROR \n");
-		return (0);
+		dprintf(STDERR_FILENO, "Can't read from file %s\n", file_to);
+		exit(99);
 	}
 
 	/* allocate memory for buffer */
@@ -73,21 +70,21 @@ int main(int argc, char **argv)
 		free(text_buffer);
 		return (0);
 	}
-	
-	/* try to read the file*/
-	nb_byte_read = read(file_desc_from, text_buffer, 12);
-	nb_print_char = write(file_desc_to, text_buffer, 12);
 
-	printf("TEXT = %s\n",text_buffer),
+/**
+* Read the file in chunks of 1024 bytes (buffer size)
+* The file offset automatically advances after each read
+* Repeat the process until the number of bytes read is less
+* than the buffer size
+*/
 
-	nb_byte_read = read(file_desc_from, text_buffer, 12);
-	nb_print_char = write(file_desc_to, text_buffer, 12);
-
-	printf("TEXT = %s\n",text_buffer),
-
-	printf("nb_byte_read = %lu \n",nb_byte_read);
-	printf("nb_print_char = %lu \n",nb_print_char);
-
+	/* initialize nb_byte_read to 1024 to start the first loop */
+	nb_byte_read = 1024;
+	while (nb_byte_read >= buffer_size)
+	{
+		nb_byte_read = read(file_desc_from, text_buffer, buffer_size);
+		nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
+	}
 
 
 	close(file_desc_from);
