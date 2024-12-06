@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "main.h"
 
 void close_properly(int fd_from, int fd_to, char *text_buffer)
 {
