@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 	file_desc_from = open(file_from, O_RDONLY);
 	if ((file_desc_from == -1) || (file_from == NULL))
 	{
-		dprintf(STDERR_FILENO, "Can't read from file %s\n", file_from);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
 
