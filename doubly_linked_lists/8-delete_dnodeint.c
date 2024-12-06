@@ -89,6 +89,39 @@ int del_dnodeint_begin(dlistint_t **head)
 }
 
 /**
+* del_dnodeint_index- deletes the index node in a list
+* @head: double pointer to dlistint_t list
+* @index: index of the node to delete
+* Return: 1 if success -1 if failure
+*/
+int del_dnodeint_index(dlistint_t **head, unsigned int index)
+{
+	dlistint_t *temp_buffer = NULL;
+	unsigned int current_index = 0;
+
+	temp_buffer = (*head);
+
+	/* Loop through the list to find the node at the given index */
+	while (temp_buffer != NULL)
+	{
+		if (current_index == index)
+		{
+			/* link node n-1 and n+1 to bypass the node */
+			temp_buffer->prev->next = temp_buffer->next;
+			temp_buffer->next->prev = temp_buffer->prev;
+
+			free(temp_buffer);
+			return (1);
+		}
+		temp_buffer = temp_buffer->next;
+		current_index++;
+	}
+
+	return (-1); /* Index out of range */
+}
+
+
+/**
 * delete_dnodeint_at_index - deletes the node at index of a
 * dlistint_t linked list. index start at 0.
 * @head: double pointer to the head of the double linked chain
@@ -99,8 +132,6 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 {
 	/* Declare and initialize variables */
 	unsigned int list_len = 0;
-	unsigned int current_index = 0;
-	dlistint_t *temp_buffer = NULL;
 
 	/* Calculate len of the list */
 	list_len = dlistint_len(*head);
@@ -117,34 +148,17 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 	{
 		/* If == 0 : delete node at the begining of the list */
 		if (index == 0)
-		{
 			return (del_dnodeint_begin(head));
-		}
+
 		/* If index == (list_len) : delete node at the end of the list */
 		else if (index == (list_len - 1))
-		{
 			return (del_dnodeint_end(head));
-		}
-		/* otherwise traverse until index and delete node */
+
+		/* otherwise delete node at the index of the list */
 		else
 		{
-			temp_buffer = (*head);
-
-			while (temp_buffer != NULL)
-			{
-				if (current_index == (index))
-				{
-					/* link node n-1 and n+1 */
-					temp_buffer->prev->next = temp_buffer->next;
-					temp_buffer->next->prev = temp_buffer->prev;
-					free(temp_buffer);
-					return (1);
-				}
-				temp_buffer = temp_buffer->next;
-			}
-
+			return (del_dnodeint_index(head, index));
 		}
-
 	}
 
 	return (-1);
