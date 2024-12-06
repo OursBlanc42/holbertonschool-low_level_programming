@@ -100,6 +100,16 @@ int main(int argc, char **argv)
 	{
 		nb_byte_read = read(file_desc_from, text_buffer, buffer_size);
 		nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
+
+		/* error check */
+		if ((nb_byte_read == -1) ||
+			(nb_print_char == -1) ||
+			(nb_print_char != nb_byte_read))
+		{
+			close_properly(file_desc_to, file_desc_from, text_buffer);
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+			exit(99);
+		}
 	}
 
 	/* close each document */
@@ -107,7 +117,6 @@ int main(int argc, char **argv)
 
 	/* Free the allocated buffer */
 	free(text_buffer);
-
 
 	return (0);
 }
