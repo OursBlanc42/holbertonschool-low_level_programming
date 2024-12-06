@@ -93,22 +93,31 @@ int main(int argc, char **argv)
 * Repeat the process until the number of bytes read is less
 * than the buffer size
 */
-
-	/* initialize nb_byte_read to 1024 to start the first loop */
-	nb_byte_read = 1024;
-	while (nb_byte_read >= buffer_size)
+	/* initialize nb_byte_read to 1 to launch the first loop */
+	nb_byte_read = 1;
+	while (nb_byte_read > 0)
 	{
 		nb_byte_read = read(file_desc_from, text_buffer, buffer_size);
-		nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
 
 		/* error check */
-		if ((nb_byte_read == -1) ||
-			(nb_print_char == -1) ||
-			(nb_print_char != nb_byte_read))
+		if (nb_byte_read == -1)
 		{
 			close_properly(file_desc_to, file_desc_from, text_buffer);
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
-			exit(99);
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+			exit(98);
+		}
+
+		if (nb_byte_read > 0) /* avoid writing nothing */
+		{
+			nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
+
+			/* error check */
+			if ((nb_print_char == -1) || (nb_print_char != nb_byte_read))
+			{
+				close_properly(file_desc_to, file_desc_from, text_buffer);
+				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+				exit(99);
+			}
 		}
 	}
 
