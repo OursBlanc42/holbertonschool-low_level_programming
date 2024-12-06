@@ -35,7 +35,7 @@ int append_text_to_file(const char *filename, char *text_content)
 {
 	/* declare and initialize varialbe */
 	int file_desc = 0;
-	unsigned long int nb_print_char = 0;
+	ssize_t nb_print_char = 0; /* ssize_t : type to manipulate bytes */
 
 	/* check special case (if filename is NULL return -1) */
 	if (filename == NULL)
@@ -53,20 +53,24 @@ int append_text_to_file(const char *filename, char *text_content)
 	if (text_content == NULL)
 	{
 		if (file_desc == -1)
-			return (1);
-		else
+		{
 			return (-1);
+		}
+		else
+		{
+			close(file_desc);
+			return (1);
+		}
 	}
 
 	/* write data in file */
 	nb_print_char = write(file_desc, text_content, _strlen(text_content));
 
-	/* if write display more than 0 char on screen is success and return 1 */
-	if (nb_print_char > 0)
-	{
-		return (1);
-	}
+	close(file_desc);
 
-	return (-1);
+	/* Check if write operation was successful */
+	if (nb_print_char == -1)
+		return (-1);
 
+	return (1);
 }
