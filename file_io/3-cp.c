@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 	if (file_desc_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-		exit(98);  // Quitte immédiatement pour respecter la consigne
+		exit(98); 
 	}
 
 /* Try to open/create the destination file and allocate memory for buffer */
