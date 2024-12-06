@@ -7,7 +7,7 @@
 void close_properly(int fd_from, int fd_to, char *text_buffer)
 {
 	/* Try to close the first file descriptor */
-	if (close(fd_from) == -1)
+	if (fd_from >= 0 && close(fd_from) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
 
@@ -19,7 +19,7 @@ void close_properly(int fd_from, int fd_to, char *text_buffer)
 	}
 
 	/* Try to close the second file descriptor */
-	if (close(fd_to) == -1)
+	if (fd_to >= 0 && close(fd_to) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
 
@@ -47,8 +47,8 @@ int main(int argc, char **argv)
 	/* declare variables */
 	char *file_from = NULL;
 	char *file_to = NULL;
-	int file_desc_from = 0;
-	int file_desc_to = 0;
+	int file_desc_from = -1;
+	int file_desc_to = -1;
 	ssize_t buffer_size = 1024;
 	ssize_t nb_byte_read = 0;
 	ssize_t nb_print_char = 0;
