@@ -6,10 +6,10 @@
 
 void close_properly(int fd_from, int fd_to, char *text_buffer)
 {
-	/* Try to close the first file descriptor */
-	if (fd_from >= 0 && close(fd_from) == -1)
+	/* Try to close the second file descriptor */
+	if (fd_to >= 0 && close(fd_to) == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
 
 		/* Free the allocated buffer */
 		if (text_buffer != NULL)
@@ -18,10 +18,10 @@ void close_properly(int fd_from, int fd_to, char *text_buffer)
 		exit(100);
 	}
 
-	/* Try to close the second file descriptor */
-	if (fd_to >= 0 && close(fd_to) == -1)
+	/* Try to close the first file descriptor */
+	if (fd_from >= 0 && close(fd_from) == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
 
 		/* Free the allocated buffer */
 		if (text_buffer != NULL)
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 	if (file_desc_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-		exit(98);
+		exit(98);  // Quitte immédiatement pour respecter la consigne
 	}
 
 /* Try to open/create the destination file and allocate memory for buffer */
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 
 	if ((file_desc_to == -1) || (text_buffer == NULL))
 	{
-		close_properly(file_desc_to, file_desc_from, text_buffer);
+		close_properly(file_desc_from, file_desc_to, text_buffer);
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 		exit(99);
 	}
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 		/* error check */
 		if (nb_byte_read == -1)
 		{
-			close_properly(file_desc_to, file_desc_from, text_buffer);
+			close_properly(file_desc_from, file_desc_to, text_buffer);
 			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 			exit(98);
 		}
@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 			/* error check */
 			if ((nb_print_char == -1) || (nb_print_char != nb_byte_read))
 			{
-				close_properly(file_desc_to, file_desc_from, text_buffer);
+				close_properly(file_desc_from, file_desc_to, text_buffer);
 				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 				exit(99);
 			}
@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 	}
 
 	/* close each document */
-	close_properly(file_desc_to, file_desc_from, text_buffer);
+	close_properly(file_desc_from, file_desc_to, text_buffer);
 
 	/* Free the allocated buffer */
 	free(text_buffer);
