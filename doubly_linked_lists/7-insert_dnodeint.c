@@ -53,11 +53,13 @@ dlistint_t *insert_after_node(dlistint_t *h, unsigned int idx, int n)
 
 			/* write data */
 			node->n = n;
-			/* Set the pref of new node to current_node */
+			/* Set the prev of new node to current_node */
 			node->prev = (temp_buffer);
 			/* Set the next of new node */
-			node->next = (temp_buffer)->next;
-			/* update the link with next node to new node */
+			node->next = (temp_buffer)->next; 
+			/* update link with next node to new node */
+			node->next->prev = node;
+			/* update the link with previous node to new node */
 			(temp_buffer)->next = node;
 
 			return (node);
