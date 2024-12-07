@@ -76,6 +76,7 @@ int main(int argc, char **argv)
 
 	if ((file_desc_to == -1) || (text_buffer == NULL))
 	{
+		close_properly(file_desc_from, file_desc_to, text_buffer);
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 		exit(99);
 	}
@@ -95,6 +96,7 @@ int main(int argc, char **argv)
 		/* error check */
 		if (nb_byte_read == -1)
 		{
+			close_properly(file_desc_from, file_desc_to, text_buffer);
 			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 			exit(98);
 		}
@@ -106,6 +108,7 @@ int main(int argc, char **argv)
 			/* error check */
 			if ((nb_print_char == -1) || (nb_print_char != nb_byte_read))
 			{
+				close_properly(file_desc_from, file_desc_to, text_buffer);
 				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 				exit(99);
 			}
