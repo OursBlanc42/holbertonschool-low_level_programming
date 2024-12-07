@@ -3,33 +3,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void close_properly(int fd_from, int fd_to, char *text_buffer)
-{
-	/* Try to close the second file descriptor */
-	if (fd_to >= 0 && close(fd_to) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
-
-		/* Free the allocated buffer */
-		if (text_buffer != NULL)
-			free(text_buffer);
-
-		exit(100);
-	}
-
-	/* Try to close the first file descriptor */
-	if (fd_from >= 0 && close(fd_from) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
-
-		/* Free the allocated buffer */
-		if (text_buffer != NULL)
-			free(text_buffer);
-
-		exit(100);
-	}
-}
-
 /**
  * main - copies the content of a file to another file
  * Description : This program is an ersatz of the 'cp' command
@@ -46,16 +19,15 @@ int main(int argc, char **argv)
 	/* declare variables */
 	char *file_from = NULL;
 	char *file_to = NULL;
-	char *text_buffer = NULL;
 	int file_desc_from = -1, file_desc_to = -1;
-	ssize_t buffer_size = 1024, nb_byte_read = 0, nb_print_char = 0;
+	ssize_t nb_byte_read = 0, nb_print_char = 0;
+	const ssize_t buffer_size = 1024;
+	char text_buffer[1024];
+
 
 	/* Check the number of argument */
 	if (argc != 3)
-	{
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-		exit(97);
-	}
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
 
 	/* Gets the names of the two files and initializes them in variables */
 	file_from = argv[1];
@@ -66,25 +38,20 @@ int main(int argc, char **argv)
 	if (file_desc_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-		exit(98); 
+		exit(98);
 	}
 
 	/* Try to open/create the destination file and allocate memory for buffer */
-	file_desc_to = open(file_to, O_RDWR | O_TRUNC);
+	file_desc_to = open(file_to, O_WRONLY | O_TRUNC);
 
 	/* If the destination file doesn't exist, create it */
 	if (file_desc_to == -1)
-	{
-		file_desc_to = open(file_to, O_CREAT | O_RDWR | O_TRUNC, 0664);
-	}
-
-	text_buffer = malloc(buffer_size * sizeof(char));
+		file_desc_to = open(file_to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	/* error check */
-	if ((file_desc_to == -1) || (text_buffer == NULL))
+	if (file_desc_to == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
-		exit(99);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to), exit(99);
 	}
 
 /**
@@ -120,10 +87,17 @@ int main(int argc, char **argv)
 	}
 
 	/* close each document */
-	close_properly(file_desc_from, file_desc_to, text_buffer);
+	if (close(file_desc_from) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_from);
+		exit (100);
+	}
 
-	/* Free the allocated buffer */
-	free(text_buffer);
+	if (close(file_desc_to) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_to);
+		exit (100);
+	}
 
 	return (0);
 }
