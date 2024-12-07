@@ -3,51 +3,32 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void close_properly(int fd_from, int fd_to, char *text_buffer, ssize_t nb_byte_read, ssize_t nb_print_char)
+void close_properly(int fd_from, int fd_to, char *text_buffer)
 {
-	/*  Check reading errors */
-	if (nb_byte_read == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file\n");
-	}
-
-	/* Check writing error */
-	if (nb_print_char == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to file\n");
-	}
-
-	/* Try to close destination file */
+	/* Try to close the second file descriptor */
 	if (fd_to >= 0 && close(fd_to) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
+
+		/* Free the allocated buffer */
 		if (text_buffer != NULL)
 			free(text_buffer);
+
 		exit(100);
 	}
 
-	/* Try to close source file*/
+	/* Try to close the first file descriptor */
 	if (fd_from >= 0 && close(fd_from) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+
+		/* Free the allocated buffer */
 		if (text_buffer != NULL)
 			free(text_buffer);
+
 		exit(100);
 	}
-
-	/* Free memory if allocated */
-	if (text_buffer != NULL)
-	{
-		free(text_buffer);
-	}
-
-	/* Error output according to error founded */
-	if (nb_byte_read == -1)
-		exit(98); 
-	if (nb_print_char == -1)
-		exit(99); 
 }
-
 
 /**
  * main - copies the content of a file to another file
@@ -80,30 +61,31 @@ int main(int argc, char **argv)
 	file_from = argv[1];
 	file_to = argv[2];
 
-	/* Try to open the destination file */
-	file_desc_to = open(file_to, O_RDWR | O_TRUNC);
-
-	/* If the file doesn't exist, create it */
-	if (file_desc_to == -1)
-	{
-		file_desc_to = open(file_to, O_CREAT | O_RDWR | O_TRUNC, 0664);
-	}
-	
-	/* check for error*/
+	/* try to open the source file */
+	file_desc_from = open(file_from, O_RDONLY);
 	if (file_desc_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98); 
 	}
 
-/* Try to open/create the destination file and allocate memory for buffer */
+	/* Try to open/create the destination file and allocate memory for buffer */
+	file_desc_to = open(file_to, O_RDWR | O_TRUNC);
 
-	file_desc_to = open(file_to, O_CREAT | O_RDWR | O_TRUNC, 0664);
+	/* If the destination file doesn't exist, create it */
+	if (file_desc_to == -1)
+	{
+		file_desc_to = open(file_to, O_CREAT | O_RDWR | O_TRUNC, 0664);
+	}
+
 	text_buffer = malloc(buffer_size * sizeof(char));
 
+	/* error check */
 	if ((file_desc_to == -1) || (text_buffer == NULL))
 	{
-		close_properly(file_desc_from, file_desc_to, text_buffer, nb_byte_read, nb_print_char);
+		close_properly(file_desc_from, file_desc_to, text_buffer);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+		exit(99);
 	}
 
 /**
@@ -121,24 +103,30 @@ int main(int argc, char **argv)
 		/* error check */
 		if (nb_byte_read == -1)
 		{
-			close_properly(file_desc_from, file_desc_to, text_buffer, nb_byte_read, nb_print_char);
+			close_properly(file_desc_from, file_desc_to, text_buffer);
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+			exit(98);
 		}
 
 		if (nb_byte_read > 0) /* avoid writing nothing */
 		{
-			nb_byte_read = 0 /* reinitialize to avoid double error in close_properly */
 			nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
 
 			/* error check */
 			if ((nb_print_char == -1) || (nb_print_char != nb_byte_read))
 			{
-				close_properly(file_desc_from, file_desc_to, text_buffer, nb_byte_read, nb_print_char);
+				close_properly(file_desc_from, file_desc_to, text_buffer);
+				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+				exit(99);
 			}
 		}
 	}
 
 	/* close each document */
-	close_properly(file_desc_from, file_desc_to, text_buffer, nb_byte_read, nb_print_char);
+	close_properly(file_desc_from, file_desc_to, text_buffer);
+
+	/* Free the allocated buffer */
+	free(text_buffer);
 
 	return (0);
 }
