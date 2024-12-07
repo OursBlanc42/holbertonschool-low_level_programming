@@ -4,6 +4,11 @@
 #include <fcntl.h>
 #include "main.h"
 
+/**
+* close_file - Close file from file descriptor
+* @file_desc: File descriptor
+* Return: Nothing (void)
+*/
 void close_file(int file_desc)
 {
 	if (close(file_desc))
@@ -13,43 +18,92 @@ void close_file(int file_desc)
 	}
 }
 
+/**
+* error98 - Display error 98
+* Description : file_from not exist or cannot be read : exit with code 98
+* @filename: File name cause the error
+* Return: Nothing (void)
+*/
 void error98(char *filename)
 {
 	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
 	exit(98);
 }
 
+
+/**
+* error99 - Display error 99
+* Description : file_to cant be created or writing fail : exit with code 99
+* @filename: File name cause the error
+* Return: Nothing (void)
+*/
 void error99(char *filename)
 {
 	dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 	exit(99);
 }
 
+
 /**
- * main - copies the content of a file to another file
- * Description : This program is an ersatz of the 'cp' command
- * Algorithm :
- * Read the file in chunks of 1024 bytes (buffer size)
- * The file offset automatically advances after each read
- * Repeat the process until the number of bytes read is less
- * than the buffer size
- *
- * Error code :
- * - If the number of arguments is incorrect : exit with code 97
- * - If file_to already exists : will be truncate.
- * - If file_from not exist or cannot be read : exit with code 98
- * - If file_to cant be created or writing to it fail : exit with code 99
- * - If a file descriptor cannot be closed, exit with code 100
- * @filename: test file to read
- * Return: always 0
- */
+* copy_content - Copies the content from one file descriptor to another
+* Description :
+* Read the file in chunks of 1024 bytes (buffer size)
+* The file offset automatically advances after each read
+* Repeat the process until the number of bytes read is less than the
+* buffer size
+*
+* @file_from: Source filename
+* @file_desc_from: Source file descriptor.
+* @file_to: Destination filename
+* @file_desc_to: Destination file descriptor.
+* @buffer: Buffer for data
+* @buffer_size: Size of the buffer.
+* Return : nothing (void)
+*/
+void subfunc_copy(int file_desc_from, int file_desc_to, char *buffer,
+
+ssize_t buffer_size, char *file_from, char *file_to)
+{
+	ssize_t nb_byte_read = 0;
+	ssize_t nb_print_char = 0;
+
+	while ((nb_byte_read = read(file_desc_from, buffer, buffer_size)) > 0)
+	{
+		/* error check for read */
+		if (nb_byte_read == -1)
+			error98(file_from);
+
+		nb_print_char = write(file_desc_to, buffer, nb_byte_read);
+
+		/* error check for write */
+		if (nb_print_char == -1 || nb_print_char != nb_byte_read)
+			error99(file_to);
+	}
+
+	/* If read returned -1 outside the loop */
+	if (nb_byte_read == -1)
+		error98(file_from);
+}
+
+
+/**
+* main - copies the content of a file to another file
+* Description : This program is an ersatz of the 'cp' command
+* Error code :
+* - If the number of arguments is incorrect : exit with code 97
+* - If file_from not exist or cannot be read : exit with code 98
+* - If file_to cant be created or writing to it fail : exit with code 99
+* - If a file descriptor cannot be closed, exit with code 100
+* @argc: number of argument passed in the function
+* @argv: array of arguments
+* Return: always 0
+*/
 int main(int argc, char **argv)
 {
 	/* declare variables */
 	char *file_from = NULL;
 	char *file_to = NULL;
 	int file_desc_from = -1, file_desc_to = -1;
-	ssize_t nb_byte_read = 0, nb_print_char = 0;
 	const ssize_t buffer_size = 1024;
 	char text_buffer[1024];
 
@@ -75,25 +129,9 @@ int main(int argc, char **argv)
 	if (file_desc_to == -1)		/* error check */
 		error99(file_to);
 
-	/* initialize nb_byte_read to 1 to launch the first loop */
-	nb_byte_read = 1;
-	while (nb_byte_read > 0)
-	{
-		nb_byte_read = read(file_desc_from, text_buffer, buffer_size);
-
-		/* error check */
-		if (nb_byte_read == -1)
-			error98(file_from);
-
-		if (nb_byte_read > 0) /* avoid writing nothing */
-		{
-			nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
-
-			/* error check */
-			if ((nb_print_char == -1) || (nb_print_char != nb_byte_read))
-				error99(file_to);
-		}
-	}
+	/* Call subfunction */
+	subfunc_copy(file_desc_from, file_desc_to, text_buffer, buffer_size,
+	file_from, file_to);
 
 	/* close each document */
 	close_file(file_desc_from);
