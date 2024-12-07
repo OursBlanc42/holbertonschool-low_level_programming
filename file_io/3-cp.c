@@ -2,10 +2,39 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "main.h"
+
+void close_file(int file_desc)
+{
+	if (close(file_desc))
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc);
+		exit(100);
+	}
+}
+
+void error98(char *filename)
+{
+	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+	exit(98);
+}
+
+void error99(char *filename)
+{
+	dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
+	exit(99);
+}
 
 /**
  * main - copies the content of a file to another file
  * Description : This program is an ersatz of the 'cp' command
+ * Algorithm :
+ * Read the file in chunks of 1024 bytes (buffer size)
+ * The file offset automatically advances after each read
+ * Repeat the process until the number of bytes read is less
+ * than the buffer size
+ *
+ * Error code :
  * - If the number of arguments is incorrect : exit with code 97
  * - If file_to already exists : will be truncate.
  * - If file_from not exist or cannot be read : exit with code 98
@@ -24,7 +53,6 @@ int main(int argc, char **argv)
 	const ssize_t buffer_size = 1024;
 	char text_buffer[1024];
 
-
 	/* Check the number of argument */
 	if (argc != 3)
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
@@ -36,30 +64,17 @@ int main(int argc, char **argv)
 	/* try to open the source file */
 	file_desc_from = open(file_from, O_RDONLY);
 	if (file_desc_from == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-		exit(98);
-	}
+		error98(file_from);
 
-	/* Try to open/create the destination file and allocate memory for buffer */
+	/* Try to open destination file */
 	file_desc_to = open(file_to, O_WRONLY | O_TRUNC);
 
-	/* If the destination file doesn't exist, create it */
-	if (file_desc_to == -1)
+	if (file_desc_to == -1)		/* If the file doesn't exist, create it */
 		file_desc_to = open(file_to, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
-	/* error check */
-	if (file_desc_to == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to), exit(99);
-	}
+	if (file_desc_to == -1)		/* error check */
+		error99(file_to);
 
-/**
-* Read the file in chunks of 1024 bytes (buffer size)
-* The file offset automatically advances after each read
-* Repeat the process until the number of bytes read is less
-* than the buffer size
-*/
 	/* initialize nb_byte_read to 1 to launch the first loop */
 	nb_byte_read = 1;
 	while (nb_byte_read > 0)
@@ -68,10 +83,7 @@ int main(int argc, char **argv)
 
 		/* error check */
 		if (nb_byte_read == -1)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-			exit(98);
-		}
+			error98(file_from);
 
 		if (nb_byte_read > 0) /* avoid writing nothing */
 		{
@@ -79,25 +91,13 @@ int main(int argc, char **argv)
 
 			/* error check */
 			if ((nb_print_char == -1) || (nb_print_char != nb_byte_read))
-			{
-				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
-				exit(99);
-			}
+				error99(file_to);
 		}
 	}
 
 	/* close each document */
-	if (close(file_desc_from) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_from);
-		exit (100);
-	}
-
-	if (close(file_desc_to) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc_to);
-		exit (100);
-	}
+	close_file(file_desc_from);
+	close_file(file_desc_to);
 
 	return (0);
 }
