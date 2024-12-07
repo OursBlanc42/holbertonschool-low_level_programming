@@ -43,9 +43,9 @@ void close_properly(int fd_from, int fd_to, char *text_buffer, ssize_t nb_byte_r
 
 	/* Error output according to error founded */
 	if (nb_byte_read == -1)
-		exit(98); /* Erreur de lecture */
+		exit(98); 
 	if (nb_print_char == -1)
-		exit(99); /* Erreur d'écriture */
+		exit(99); 
 }
 
 
@@ -80,8 +80,16 @@ int main(int argc, char **argv)
 	file_from = argv[1];
 	file_to = argv[2];
 
-	/* try to open the source file */
-	file_desc_from = open(file_from, O_RDONLY);
+	/* Try to open the destination file */
+	file_desc_to = open(file_to, O_RDWR | O_TRUNC);
+
+	/* If the file doesn't exist, create it */
+	if (file_desc_to == -1)
+	{
+		file_desc_to = open(file_to, O_CREAT | O_RDWR | O_TRUNC, 0664);
+	}
+	
+	/* check for error*/
 	if (file_desc_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
@@ -118,6 +126,7 @@ int main(int argc, char **argv)
 
 		if (nb_byte_read > 0) /* avoid writing nothing */
 		{
+			nb_byte_read = 0 /* reinitialize to avoid double error in close_properly */
 			nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
 
 			/* error check */
