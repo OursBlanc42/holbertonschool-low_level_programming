@@ -11,7 +11,7 @@
 */
 void close_file(int file_desc)
 {
-	if (close(file_desc))
+	if (close(file_desc) == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_desc);
 		exit(100);
@@ -102,8 +102,11 @@ int main(int argc, char **argv)
 {
 	/* declare variables */
 	char *file_from = NULL;
+
 	char *file_to = NULL;
+
 	int file_desc_from = -1, file_desc_to = -1;
+
 	const ssize_t buffer_size = 1024;
 	char text_buffer[1024];
 
@@ -139,3 +142,5 @@ int main(int argc, char **argv)
 
 	return (0);
 }
+
+
