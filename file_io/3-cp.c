@@ -76,7 +76,6 @@ int main(int argc, char **argv)
 
 	if ((file_desc_to == -1) || (text_buffer == NULL))
 	{
-		close_properly(file_desc_from, file_desc_to, text_buffer);
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 		exit(99);
 	}
@@ -89,23 +88,29 @@ int main(int argc, char **argv)
 */
 	/* initialize nb_byte_read to 1 to launch the first loop */
 	nb_byte_read = 1;
-	while ((nb_byte_read = read(file_desc_from, text_buffer, buffer_size)) > 0)
+	while (nb_byte_read > 0)
+	{
+		nb_byte_read = read(file_desc_from, text_buffer, buffer_size);
+
+		/* error check */
+		if (nb_byte_read == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+			exit(98);
+		}
+
+		if (nb_byte_read > 0) /* avoid writing nothing */
 		{
 			nb_print_char = write(file_desc_to, text_buffer, nb_byte_read);
-			if (nb_print_char == -1 || nb_print_char != nb_byte_read)
+
+			/* error check */
+			if ((nb_print_char == -1) || (nb_print_char != nb_byte_read))
 			{
-				close_properly(file_desc_from, file_desc_to, text_buffer);
 				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 				exit(99);
 			}
 		}
-
-		if (nb_byte_read == -1) 
-		{
-			close_properly(file_desc_from, file_desc_to, text_buffer);
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
-			exit(98);
-		}
+	}
 
 	/* close each document */
 	close_properly(file_desc_from, file_desc_to, text_buffer);
